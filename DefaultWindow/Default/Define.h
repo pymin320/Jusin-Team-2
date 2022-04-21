@@ -8,3 +8,5 @@
 #define		PURE		= 0
 
 extern HWND			g_hWnd;
+
+//define
