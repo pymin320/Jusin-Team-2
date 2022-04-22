@@ -28,6 +28,12 @@
     <Filter Include="01. Obj\01. Bullet">
       <UniqueIdentifier>{c74ec3a3-edbe-48ed-97c3-c0e21c9225ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Obj\02.Monster">
+      <UniqueIdentifier>{774aafed-50d0-4c44-b26b-ff1da6783f2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AbstractFactory">
+      <UniqueIdentifier>{fedfa326-1238-4d34-b810-9085818fc66c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -69,6 +75,12 @@
     <ClInclude Include="Player.h">
       <Filter>01. Obj\00. Player</Filter>
     </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>01. Obj\02.Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractFactory.h">
+      <Filter>AbstractFactory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -85,6 +97,9 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>01. Obj\00. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>01. Obj\02.Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

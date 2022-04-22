@@ -21,7 +21,7 @@ void CPlayer::Initialize(void)
 	m_fSpeed = 10.f;
 }
 
-void CPlayer::Update(void)
+int CPlayer::Update(void)
 {
 	// 연산을 진행
 	Key_Input();
@@ -30,6 +30,12 @@ void CPlayer::Update(void)
 
 	// 모든 연산이 끝난 뒤에 최종적인 좌표를 완성
 	Update_Rect();
+	return 0;
+}
+
+void CPlayer::Late_Update(void)
+{
+
 }
 
 void CPlayer::Render(HDC hDC)

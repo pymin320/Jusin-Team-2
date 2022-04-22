@@ -1,11 +1,11 @@
 #pragma once
 #include "Obj.h"
-class CPlayer :
+class CMonster :
 	public CObj
 {
 public:
-	CPlayer();
-	virtual ~CPlayer();
+	CMonster(/*MOBTYPE eMob*/ );
+	virtual~CMonster();
 
 public:
 	virtual void Initialize(void) override;
@@ -14,7 +14,7 @@ public:
 	virtual void Render(HDC hDC) override;
 	virtual void Release(void) override;
 
-private:
-	void		Key_Input(void);
+
+
 };
 
