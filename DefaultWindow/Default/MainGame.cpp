@@ -64,7 +64,7 @@ void CMainGame::Render(void)
 void CMainGame::Release(void)
 {
 	Safe_Delete<CObj*>(m_pPlayer);
-
+	delete m_Pattern;
 	ReleaseDC(g_hWnd, m_hDC);	
 }
 
