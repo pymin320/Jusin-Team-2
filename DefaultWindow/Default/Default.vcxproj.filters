@@ -28,6 +28,12 @@
     <Filter Include="01. Obj\01. Bullet">
       <UniqueIdentifier>{c74ec3a3-edbe-48ed-97c3-c0e21c9225ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Design">
+      <UniqueIdentifier>{c5be222b-1906-4375-bc6c-e32c4525ed8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Design\CollisionMgr">
+      <UniqueIdentifier>{69b2c4c2-15da-489a-8b9f-2d0f74a0e9c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -69,6 +75,9 @@
     <ClInclude Include="Player.h">
       <Filter>01. Obj\00. Player</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionMgr.h">
+      <Filter>Design\CollisionMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -85,6 +94,9 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>01. Obj\00. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionMgr.cpp">
+      <Filter>Design\CollisionMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
