@@ -28,6 +28,9 @@
     <Filter Include="01. Obj\01. Bullet">
       <UniqueIdentifier>{c74ec3a3-edbe-48ed-97c3-c0e21c9225ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Design">
+      <UniqueIdentifier>{f7a52878-6713-4b60-b4c1-4c597d1b4a6a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -69,6 +72,18 @@
     <ClInclude Include="Player.h">
       <Filter>01. Obj\00. Player</Filter>
     </ClInclude>
+    <ClInclude Include="CPattern.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractFactory.h">
+      <Filter>Design</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>01. Obj\01. Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonster.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -85,6 +100,15 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>01. Obj\00. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CPattern.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>01. Obj\01. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonster.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

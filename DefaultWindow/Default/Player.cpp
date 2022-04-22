@@ -1,8 +1,10 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "CPattern.h"
 
 CPlayer::CPlayer()
 {
+	Initialize();
 }
 
 CPlayer::~CPlayer()
@@ -19,10 +21,14 @@ void CPlayer::Initialize(void)
 	m_tInfo.fCY = 100.f;
 
 	m_fSpeed = 10.f;
+	m_tPosin.x = (long)m_tInfo.fX;
+	m_tPosin.y = (long)m_tInfo.fY;
 }
 
-void CPlayer::Update(void)
+int CPlayer::Update(void)
 {
+	if (m_bDead)
+		return OBJ_DEAD;
 	// 연산을 진행
 	Key_Input();
 
@@ -30,6 +36,11 @@ void CPlayer::Update(void)
 
 	// 모든 연산이 끝난 뒤에 최종적인 좌표를 완성
 	Update_Rect();
+	return OBJ_NOEVENT;
+}
+
+void CPlayer::Late_Update(void)
+{
 }
 
 void CPlayer::Render(HDC hDC)
@@ -39,7 +50,6 @@ void CPlayer::Render(HDC hDC)
 
 void CPlayer::Release(void)
 {
-	
 }
 
 void CPlayer::Key_Input(void)
@@ -56,4 +66,14 @@ void CPlayer::Key_Input(void)
 
 	if (GetAsyncKeyState(VK_DOWN))
 		m_tInfo.fY += m_fSpeed;
+	
+	
+	
+	//1초에 한번쏘기
+	DWORD currentTickCount = GetTickCount();
+	if (currentTickCount - m_Time >= 1000)
+	{
+		m_pPattern->Attack(m_tPosin);
+		m_Time = GetTickCount();
+	}
 }
