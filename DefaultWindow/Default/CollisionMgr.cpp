@@ -20,22 +20,25 @@ void CCollisionMgr::Collision_Rect(list<CObj*> _Dest, list<CObj*> _Sour)
 	{
 		for (auto& Sour : _Sour)
 		{
-			if (IntersectRect(&rc, &(Dest->Get_Rect()), &(Sour->Get_Rect())))
+			if (IntersectRect(&rc, &(Dest->Get_Rect()), &(Sour->Get_Rect())))		// ì¶©ëŒ ì²´í¬ í•¨ìˆ˜		rcì— ì¶©ëŒëœ ë²”ìœ„ê°€ ë“¤ì–´ê°€ê³  boolì„ ë°˜í™˜
 			{
-				Dest->Set_Dead();
-				Sour->Set_Dead();
+				//if(&(Dest->Get_Side()) != &(Dest->Get_Side()))
+				if ((Dest->Get_Side()) != (Sour->Get_Side()))
+				{
+					Dest->Set_Dead();
+					Sour->Set_Dead();
+				}
 			}
 		}
 	}
 }
 bool CCollisionMgr::Check_Sphere(CObj* pDest, CObj* pSour)
 {
-	
-	// abs : Àý´ë°ªÀ» ±¸ÇØÁÖ´Â ÇÔ¼ö
-	float	fWidth  = fabs(pDest->Get_Info().fX - pSour->Get_Info().fX);
+	// abs : ì ˆëŒ€ê°’ì„ êµ¬í•´ì£¼ëŠ” í•¨ìˆ˜
+	float	fWidth = fabs(pDest->Get_Info().fX - pSour->Get_Info().fX);
 	float	fHeight = fabs(pDest->Get_Info().fY - pSour->Get_Info().fY);
 
-	// sqrt : ·çÆ®¸¦ ¾º¿öÁÖ´Â ÇÔ¼ö
+	// sqrt : ë£¨íŠ¸ë¥¼ ì”Œì›Œì£¼ëŠ” í•¨ìˆ˜
 	float	fDiagonal = sqrtf(fWidth * fWidth + fHeight * fHeight);
 
 	float	fRadius = (pDest->Get_Info().fCX + pSour->Get_Info().fCX) * 0.5f;
