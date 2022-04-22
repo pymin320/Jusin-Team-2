@@ -13,7 +13,7 @@ public:
 	virtual		void	Render(HDC hDC);
 	virtual		void	Release(void);
 
-public:
+public :
 	POINT Get_PosinPoint() { return m_tPosin; };
 
 private:

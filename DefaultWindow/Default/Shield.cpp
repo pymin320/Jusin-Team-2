@@ -16,11 +16,11 @@ void CShield::Initialize(void)
 {
 	m_tInfo.fCX = 50.f;
 	m_tInfo.fCY = 50.f;
-	m_fDiagonal = 40.f;
+	m_fDiagonal = 30.f;
 }
 
 int CShield::Update(void)
-{
+{		
 	return 0;
 }
 
@@ -34,7 +34,7 @@ void CShield::Late_Update(void)
 void CShield::Render(HDC hDC)
 {
 	Ellipse(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-
+	
 	MoveToEx(hDC, m_tInfo.fX, m_tInfo.fY, NULL);
 	LineTo(hDC, m_tPosin.x, m_tPosin.y);
 }

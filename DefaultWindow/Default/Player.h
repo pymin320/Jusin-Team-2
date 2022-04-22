@@ -10,7 +10,10 @@ public:
 	virtual ~CPlayer();
 
 public:
-	void	Set_BulletList(list<CObj*>* pBullet) { m_pBullet = pBullet; }
+	void	Set_BulletList(list<CObj*>* pBullet)
+	{
+		m_pBullet = pBullet;
+	}
 
 public:
 	virtual void Initialize(void) override;
@@ -21,24 +24,27 @@ public:
 
 private:
 	void		Key_Input(void);
+	CObj*		Create_Bullet(DIRECTION eDir);
 
 
 private:
-	list<CObj*>*			m_pBullet;
+	typedef list<CObj*>		BULLETLIST;
+	BULLETLIST*				m_pBullet;
 
 	POINT					m_tPosin;
 	float					m_fDiagonal;
 
-	// 쉴드 관련
-	CObj*					m_pShield;			//쉴드 1
-	float					m_fAngle_Shield;
-	CObj*					m_pShield2;			//쉴드 2
-	float					m_fAngle_Shield2;
-	POINT					m_tPosin_Shield;
+	CObj*					m_pShield2;
+	float					m_fAngle2;
+	
+	CObj*					m_pShield3;
+	float					m_fAngle3;
 
-	// 부가기능
-	BOOL					m_bBoost;		// 부스트 모드 여부
-	int						m_iHeart;		// 플레이어 목숨
+	POINT					m_tPosin_Shield;
 
 
 };
+
+// 1. 삼각 함수 공부(cos, sin, tan)
+// 2. 플레이어 포신 추가하고 회전을 시켜라
+// 3. 포신 방향으로 플레이어를 이동해라
