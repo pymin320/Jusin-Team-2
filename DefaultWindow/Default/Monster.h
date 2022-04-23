@@ -4,7 +4,7 @@
 class CMonster :public CObj
 {
 public:
-	CMonster(/*MOBTYPE eMob*/ );
+	CMonster(MOBTYPE eType );
 	virtual~CMonster();
 
 public:
@@ -14,5 +14,7 @@ public:
 	virtual void Render(HDC hDC) override;
 	virtual void Release(void) override;
   
+private:
+	MOBTYPE m_eType;
 };
 
