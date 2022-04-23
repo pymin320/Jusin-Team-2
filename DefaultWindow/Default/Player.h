@@ -2,6 +2,8 @@
 #include "Obj.h"
 #include "Bullet.h"
 #include "Bullet_Default.h"
+#include "CPattern.h"
+#include "UI.h"
 
 class CPlayer : public CObj
 {
@@ -25,21 +27,28 @@ private:
 
 
 private:
-	list<CObj*>* m_pBullet; //메인에서 가져온거
-	list <CObj*>			m_ShieldList;
+	list<CObj*>* m_pBullet;					//메인에서 가져온거
+	list <CObj*>	m_ShieldList;
 	list<CObj*>* m_pShieldList = &m_ShieldList;
 
-	POINT					m_tPosin;
-	float					m_fDiagonal;
+	// 모양 관련
+	POINT			PolygonPoint[6];
+	POINT			m_tPosin;
+	float			m_fDiagonal;
 
 	// 쉴드 관련
-	CObj* m_pShield;			//쉴드 1
-	float					m_fAngle_Shield;
-	POINT					m_tPosin_Shield;
+	CObj* m_pShield;
+	float			m_fAngle_Shield;
+	POINT			m_tPosin_Shield;
+	float			m_fDiagonal_Shield;
 
 	// 부가기능
-	BOOL					m_bBoost;		// 부스트 모드 여부
-	int						m_iHeart;		// 플레이어 목숨
+	BOOL			m_bBoost;		// 부스트 모드 여부
+	int				m_iHeart;		// 플레이어 목숨
+	DWORD			m_Time = 0;
 
+	//UI
+	CUI*			m_pUI;
+//	CPattern*			m_pPattern;
 
 };

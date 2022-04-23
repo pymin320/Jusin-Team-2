@@ -18,7 +18,6 @@ CUI::~CUI()
 
 void CUI::Initialize(void)
 {
-	m_iScore = 132340;
 }
 
 int CUI::Update(void)
@@ -66,17 +65,19 @@ void CUI::Render_Heart(HDC hDC)
 
 void CUI::Render_Score(HDC hDC)
 {
-
+	RECT rc{ 600, 20, 770, 70 };
+	swprintf_s(m_szTemp, L"Score : %d", g_iScore);
+	DrawText(hDC, m_szTemp, lstrlen(m_szTemp), &rc, DT_RIGHT);
 }
 
-void	CUI::Render_PosText(HDC hDC, float _x, float _y, TCHAR _text[64])
+void CUI::Render_PosText(HDC hDC, float _x, float _y, TCHAR _text[64])
 {
 	lstrcpy(m_szTemp, _text);
 	TextOut(hDC, _x, _y, m_szTemp, lstrlen(m_szTemp));
 }
 
 
-// 폰트 출력 (지울예정
+// 폰트 출력 (지울예정)
 //
 //lstrcpy(m_szFPS, L"Hello");
 //TextOut(m_hDC, 50, 50, m_szFPS, lstrlen(m_szFPS));

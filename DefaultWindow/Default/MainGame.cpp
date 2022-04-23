@@ -5,7 +5,7 @@
 #include "Mouse.h"
 #include "CollisionMgr.h"
 
-int		g_iScore;
+int		g_iScore = 0;
 
 CMainGame::CMainGame()
 	: m_dwTime(GetTickCount())
@@ -29,7 +29,6 @@ void CMainGame::Initialize(void)
 
 	for (int i = 0; i < 5; ++i)
 	{
-
 		m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(float(rand() % 56 + 13) * 10, float(rand() % 30 + 13) * 10, 0));
 	}
 
@@ -76,7 +75,7 @@ void CMainGame::Late_Update(void)
 void CMainGame::Render(void)
 {
 	Rectangle(m_hDC, 0, 0, WINCX, WINCY);
-	Rectangle(m_hDC, 100, 100, WINCX - 100, WINCY - 100);
+	//Rectangle(m_hDC, 100, 100, WINCX - 100, WINCY - 100);
 
 	for (int i = 0; i < OBJ_END; ++i)
 	{
@@ -85,8 +84,8 @@ void CMainGame::Render(void)
 	}
 
 	m_pUI->Render(m_hDC);
-	m_pUI->Render_PosText(m_hDC, m_ObjList[OBJ_PLAYER].front()->Get_Info().fX, m_ObjList[OBJ_PLAYER].front()->Get_Info().fY, L"Power Up!!!!");
-
+	//m_pUI->Render_PosText(m_hDC, m_ObjList[OBJ_PLAYER].front()->Get_Info().fX, m_ObjList[OBJ_PLAYER].front()->Get_Info().fY, L"Power Up!!!!");
+	m_pUI->Render_Score(m_hDC);
 	
 	++m_iFPS;
 

@@ -14,14 +14,17 @@ CShield::~CShield()
 
 void CShield::Initialize(void)
 {
-	m_tInfo.fCX = 50.f;
-	m_tInfo.fCY = 50.f;
-	m_fDiagonal = 30.f;
+	m_tInfo.fCX = 40.f;
+	m_tInfo.fCY = 40.f;
+	m_fDiagonal = 20.f;
 }
 
 int CShield::Update(void)
 {		
-	return 0;
+	if (m_bDead)
+		return OBJ_DEAD;
+
+	return OBJ_NOEVENT;
 }
 
 void CShield::Late_Update(void)

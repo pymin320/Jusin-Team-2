@@ -14,8 +14,8 @@ CBulletDefault::~CBulletDefault()
 
 void CBulletDefault::Initialize(void)
 {
-	m_tInfo.fCX = 10.f;
-	m_tInfo.fCY = 10.f;
+	m_tInfo.fCX = 5.f;
+	m_tInfo.fCY = 5.f;
 
 	m_fSpeed = 5.f;
 }
