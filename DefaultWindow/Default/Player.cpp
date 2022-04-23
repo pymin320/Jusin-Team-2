@@ -101,7 +101,7 @@ void CPlayer::Key_Input(void)
 
 	if (GetAsyncKeyState(VK_SPACE))
 	{
-		m_pBullet->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
+		m_pBullet->push_back(CAbstractFactory<CBulletDefault>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
 		
 		// 쉴드2 총알 발사
 		POINT temp = { dynamic_cast<CShield*>(m_pShield2)->Get_PosinPoint().x,

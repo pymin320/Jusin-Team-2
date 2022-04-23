@@ -26,13 +26,23 @@ void CMainGame::Initialize(void)
 	m_ObjList[OBJ_PLAYER].push_back(CAbstractFactory<CPlayer>::Create());
 	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
 
+	//hong modify
+	//end
 
 
 	for (int i = 0; i < 5; ++i)
 	{
-
 		m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(float(rand() % 56 + 13) * 10, float(rand() % 30 + 13) * 10, 0));
+		
+		//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+		((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetPatternBulletList(&m_ObjList[OBJ_BULLET]);
+		//(CMonster*)(m_ObjList[OBJ_MONSTER])[i]->SetBulletList(&m_ObjList[OBJ_BULLET]);
+		//hong modify
+		//dynamic_cast<CMonster*>(m_ObjList[OBJ_MONSTER])->SetPattern(m_Pattern);
+		//end
 	}
+
+	
 }
 
 #pragma region 복습
@@ -150,7 +160,8 @@ void CMainGame::Release(void)
 
 		m_ObjList[i].clear();
 	}
-
+	//hong modify
+	//end
 	ReleaseDC(g_hWnd, m_hDC);	
 }
 
