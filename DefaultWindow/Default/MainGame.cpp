@@ -27,11 +27,16 @@ void CMainGame::Initialize(void)
 	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
 
 
-
+	//수비 몬스터 생성
+	for (int i = 0; i < 3; ++i)
+	{
+		m_ObjList[OBJ_DFMONSTER].push_back(CAbstractFactory<CMonster>::Create(float((rand() % 56 + 13) * 10), float((rand() % 30 + 10) * 10), MOB_DF));
+	}
+	//공격 몬스터 생성
 	for (int i = 0; i < 5; ++i)
 	{
+		m_ObjList[OBJ_FWMONSTER].push_back(CAbstractFactory<CMonster>::Create(float((rand() % 56 + 13) * 10),75.f,MOB_FW));
 
-		m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(float(rand() % 56 + 13) * 10, float(rand() % 30 + 13) * 10, 0));
 	}
 }
 

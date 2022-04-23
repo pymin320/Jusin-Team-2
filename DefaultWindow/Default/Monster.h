@@ -4,6 +4,7 @@
 class CMonster :public CObj
 {
 public:
+	CMonster();
 	CMonster(MOBTYPE eType );
 	virtual~CMonster();
 

@@ -20,6 +20,15 @@ public:
 		return pObj;
 	}
 
+	//몬스터 파라미터 생성자 
+	static CObj* Create(float _fX, float _fY, MOBTYPE eType)
+	{
+		CObj* pObj = new T(eType);
+		pObj->Initialize();
+		pObj->Set_Pos(_fX, _fY);
+		return pObj;
+	}
+
 
 	static CObj*	Create(float _fX, float _fY, float _fAngle)
 	{
