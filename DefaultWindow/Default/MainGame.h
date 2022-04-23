@@ -7,6 +7,7 @@
 #include "AbstractFactory.h"
 
 #include "CPattern.h"
+#include "CBoss.h"
 class CMainGame
 {
 public:				// 생성자, 소멸자

@@ -16,5 +16,5 @@ void CPattern::Initialize()
 
 void CPattern::Attack(POINT& _Posin)
 {
-	m_pBullet->push_back(CAbstractFactory<CBullet>::Create((float)_Posin.x, (float)_Posin.y, DIR_UP));
+	//m_pBullet->push_back(CAbstractFactory<CBullet>::Create((float)_Posin.x, (float)_Posin.y, DIR_UP));
 }

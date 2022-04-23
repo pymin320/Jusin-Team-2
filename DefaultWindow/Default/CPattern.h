@@ -1,5 +1,6 @@
 #pragma once
 #include "Bullet.h"
+
 class CPattern
 {
 public:
@@ -9,7 +10,7 @@ public:
 	void Initialize();
 	void Attack(POINT& _Posin);
 public:
-	void	Set_BulletList(list<CObj*>* pBullet)
+	void	Set_BulletList(list<CObj*>* pBullet )
 	{
 		m_pBullet = pBullet;
 	}

@@ -101,17 +101,17 @@ void CPlayer::Key_Input(void)
 
 	if (GetAsyncKeyState(VK_SPACE))
 	{
-		m_pBullet->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
+		m_pBullet->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle,"아군"));
 		
 		// 쉴드2 총알 발사
 		POINT temp = { dynamic_cast<CShield*>(m_pShield2)->Get_PosinPoint().x,
 					   dynamic_cast<CShield*>(m_pShield2)->Get_PosinPoint().y };
-		m_pBullet->push_back(CAbstractFactory<CBulletDefault>::Create((float)temp.x, (float)temp.y, m_fAngle));
+		m_pBullet->push_back(CAbstractFactory<CBulletDefault>::Create((float)temp.x, (float)temp.y, m_fAngle,"아군"));
 
 		// 쉴드3 총알 발사
 		temp = { dynamic_cast<CShield*>(m_pShield3)->Get_PosinPoint().x,
 				 dynamic_cast<CShield*>(m_pShield3)->Get_PosinPoint().y };
-		m_pBullet->push_back(CAbstractFactory<CBulletDefault>::Create((float)temp.x, (float)temp.y, m_fAngle));
+		m_pBullet->push_back(CAbstractFactory<CBulletDefault>::Create((float)temp.x, (float)temp.y, m_fAngle,"아군"));
 	}
 		
 
@@ -194,6 +194,6 @@ void CPlayer::Key_Input(void)
 
 CObj* CPlayer::Create_Bullet(DIRECTION eDir)
 {
-	CObj*		pBullet = CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, eDir);
+	CObj*		pBullet = CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, eDir, "아군");
 	return pBullet;
 }
