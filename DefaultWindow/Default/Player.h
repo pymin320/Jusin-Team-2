@@ -2,7 +2,7 @@
 #include "Obj.h"
 #include "Bullet.h"
 #include "Bullet_Default.h"
-
+#include "CPattern.h"
 class CPlayer : public CObj
 {
 public:
@@ -26,12 +26,12 @@ public:
 	{
 		m_pBullet = pBullet;
 	}*/
-	void Set_PatternList(CPattern* _pPattern, list<CObj*>* pBullet)
-	{
-		m_pPattern = _pPattern;
-		//m_pBullet = pBullet;
-		m_pPattern->Set_BulletList(pBullet);
-	}
+	//void Set_PatternList(CPattern* _pPattern, list<CObj*>* pBullet)
+	//{
+	//	m_pPattern = _pPattern;
+	//	//m_pBullet = pBullet;
+	//	m_pPattern->Set_BulletList(pBullet);
+	//}
 private:
 	void		Key_Input(void);
 
