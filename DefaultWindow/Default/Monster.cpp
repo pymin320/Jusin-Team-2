@@ -4,13 +4,11 @@
 
 CMonster::CMonster(/*MOBTYPE eMob*/)
 {
-
 }
 
 
 CMonster::~CMonster()
 {
-}
 
 void CMonster::Initialize(void)
 {	
@@ -21,11 +19,20 @@ void CMonster::Initialize(void)
 	m_fSpeed = 8.f;
 }
 
+  
+  
 int CMonster::Update(void)
 {
+	if (m_bDead)
+		return OBJ_DEAD;
+
+
 	m_tInfo.fX += m_fSpeed;
+	
 	Update_Rect();
-	return 0;
+  
+	return OBJ_NOEVENT;
+
 }
 
 void CMonster::Late_Update(void)
@@ -41,6 +48,4 @@ void CMonster::Render(HDC hDC)
 
 void CMonster::Release(void)
 {
-
 }
-

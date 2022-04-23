@@ -2,56 +2,34 @@
 
 #include "Obj.h"
 
-	template<typename T>
-	class CAbstractFactory
+
+template<typename T>
+class CAbstractFactory
+{
+public:
+
+	CAbstractFactory(){}
+	~CAbstractFactory(){}
+
+public:
+	static CObj*	Create(void)
 	{
-	public:
-		CAbstractFactory() {}
-		~CAbstractFactory() {}
+		CObj*	pObj = new T;
+		pObj->Initialize();
 
-	public:
-		static CObj*	Create(void)
-		{
-			CObj*	pObj = new T;
-			pObj->Initialize();
+		return pObj;
+	}
 
-			return pObj;
-		}
 
-		static CObj*	Create(float _fX, float _fY, DIRECTION eDir = DIR_END)
-		{
-			CObj*	pObj = new T;
+	static CObj*	Create(float _fX, float _fY, float _fAngle)
+	{
+		CObj*	pObj = new T;
 
-			pObj->Initialize();
-			pObj->Set_Pos(_fX, _fY);
+		pObj->Initialize();
+		pObj->Set_Pos(_fX, _fY);
+		pObj->Set_Angle(_fAngle);
 
-			if (DIR_END >= eDir)
-				pObj->Set_Dir(eDir);
-
-			return pObj;
-		}
-
-		static CObj*	Create(float _fX, float _fY, float _fAngle)
-		{
-			CObj*	pObj = new T;
-
-			pObj->Initialize();
-			pObj->Set_Pos(_fX, _fY);
-			pObj->Set_Angle(_fAngle);
-
-			return pObj;
-		}
-
-		static CObj*	Create(float _fX, float _fY,MOBTYPE eType)
-		{
-			CObj*	pObj = new T(eType);
-
-			pObj->Initialize();
-			pObj->Set_Pos(_fX, _fY);
-			
-
-			return pObj;
-		}
-
+		return pObj;
+	}
 };
 

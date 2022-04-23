@@ -1,5 +1,6 @@
 #pragma once
+
 enum DIRECTION { DIR_LEFT, DIR_UP, DIR_RIGHT, DIR_DOWN, DIR_END };
 
 enum OBJID { OBJ_PLAYER, OBJ_BULLET, OBJ_MONSTER, OBJ_MOUSE, OBJ_END };
-enum MOBTYPE { MOB_BOSS, MOB_DF, MOB_FW, MOB_END};//º¸½º¸÷,µðÆæµå¸÷,Æ÷¿öµå¸÷
+enum MOBTYPE { MOB_BOSS, MOB_DF, MOB_FW, MOB_END};//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½

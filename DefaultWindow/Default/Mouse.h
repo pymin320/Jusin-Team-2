@@ -1,11 +1,10 @@
 #pragma once
 #include "Obj.h"
-
-class CMonster :public CObj
+class CMouse : public CObj
 {
 public:
-	CMonster(/*MOBTYPE eMob*/ );
-	virtual~CMonster();
+	CMouse();
+	virtual ~CMouse();
 
 public:
 	virtual void Initialize(void) override;
@@ -13,6 +12,5 @@ public:
 	virtual void Late_Update(void) override;
 	virtual void Render(HDC hDC) override;
 	virtual void Release(void) override;
-  
 };
 
