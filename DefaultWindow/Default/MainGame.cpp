@@ -27,17 +27,38 @@ void CMainGame::Initialize(void)
 	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
 
 
-	//수비 몬스터 생성
-	for (int i = 0; i < 3; ++i)
-	{
-		m_ObjList[OBJ_DFMONSTER].push_back(CAbstractFactory<CMonster>::Create(float((rand() % 56 + 13) * 10), float((rand() % 30 + 10) * 10), MOB_DF));
-	}
 	//공격 몬스터 생성
-	for (int i = 0; i < 5; ++i)
+	/*for (int i = 1; i < 4; ++i)
+	{
+		m_ObjList[OBJ_FWMONSTER].push_back(CAbstractFactory<CMonster>::Create(float((rand() % 56 + 13) * 10), float((rand() % 30 + 10) * 10), MOB_FW));
+		}*/
+
+	
+
+	m_ObjList[OBJ_FWMONSTER].push_back(CAbstractFactory<CMonster>::Create(200, /*float((rand() % 30 + 10) * 10)*/250.f, MOB_FW));
+	m_ObjList[OBJ_FWMONSTER].push_back(CAbstractFactory<CMonster>::Create(300, /*float((rand() % 30 + 10) * 10)*/250.f, MOB_FW));
+	m_ObjList[OBJ_FWMONSTER].push_back(CAbstractFactory<CMonster>::Create(400, /*float((rand() % 30 + 10) * 10)*/250.f, MOB_FW));
+
+	
+	
+	//수비 몬스터 생성
+	/*for (int i = 0; i < 5; ++i)
 	{
 		m_ObjList[OBJ_FWMONSTER].push_back(CAbstractFactory<CMonster>::Create(float((rand() % 56 + 13) * 10),75.f,MOB_FW));
 
-	}
+	}*/
+	m_ObjList[OBJ_DFMONSTER].push_back(CAbstractFactory<CMonster>::Create(125.f, 75.f, MOB_DF));
+	m_ObjList[OBJ_DFMONSTER].push_back(CAbstractFactory<CMonster>::Create(225.f, 75.f, MOB_DF));
+	m_ObjList[OBJ_DFMONSTER].push_back(CAbstractFactory<CMonster>::Create(325.f, 75.f, MOB_DF));
+
+	m_ObjList[OBJ_DFMONSTER].push_back(CAbstractFactory<CMonster>::Create(475.f, 75.f, MOB_DF));
+	m_ObjList[OBJ_DFMONSTER].push_back(CAbstractFactory<CMonster>::Create(575.f, 75.f, MOB_DF));
+	m_ObjList[OBJ_DFMONSTER].push_back(CAbstractFactory<CMonster>::Create(675.f, 75.f, MOB_DF));
+
+	//추격 몬스터(ChaseMonster)
+	m_ObjList[OBJ_CHMONSTER].push_back(CAbstractFactory<CMonster>::Create(100.f, 100.f, MOB_CH));
+	m_ObjList[OBJ_CHMONSTER].push_back(CAbstractFactory<CMonster>::Create(700.f, 100.f, MOB_CH));
+
 }
 
 #pragma region 복습
@@ -74,6 +95,8 @@ void CMainGame::Update(void)
 				++iter;
 		}
 	}
+
+
 	
 }
 

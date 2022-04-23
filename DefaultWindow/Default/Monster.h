@@ -8,6 +8,8 @@ public:
 	CMonster(MOBTYPE eType );
 	virtual~CMonster();
 
+
+	
 public:
 	virtual void Initialize(void) override;
 	virtual int Update(void) override;
@@ -16,6 +18,8 @@ public:
 	virtual void Release(void) override;
   
 private:
-	MOBTYPE m_eType;
+	MOBTYPE		m_eType;
+	
+	
 };
 
