@@ -27,28 +27,16 @@ void CMainGame::Initialize(void)
 	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
 
 
-
 	for (int i = 0; i < 5; ++i)
 	{
 
 		m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(float(rand() % 56 + 13) * 10, float(rand() % 30 + 13) * 10, 0));
 	}
+
+	// UI 그리기 용도
+	m_pUI = new CUI();
+	m_pUI->Set_pPlayer(m_ObjList[OBJ_PLAYER].front());
 }
-
-#pragma region 복습
-
-	/*if (!m_pPlayer)
-	{
-		//m_pPlayer = new CPlayer;
-		//m_pPlayer->Initialize();
-		m_pPlayer = CAbstractFactory<CPlayer>::Create();
-	}
-	dynamic_cast<CPlayer*>(m_pPlayer)->Set_BulletList(&m_BulletList);*/
-
-#pragma endregion 복습
-
-	
-
 
 void CMainGame::Update(void)
 {
@@ -69,16 +57,11 @@ void CMainGame::Update(void)
 				++iter;
 		}
 	}
-	
 }
 
 void CMainGame::Late_Update(void)
 {
-// /*
-// 	m_pPlayer->Late_Update();
-// 
-// 	for (auto& iter : m_BulletList)
-// 		iter->Late_Update();*/
+
 	for (int i = 0; i < OBJ_END; ++i)
 	{
 		for (auto& iter : m_ObjList[i])
@@ -101,24 +84,9 @@ void CMainGame::Render(void)
 			iter->Render(m_hDC);
 	}
 
+	m_pUI->Render(m_hDC);
+	m_pUI->Render_PosText(m_hDC, m_ObjList[OBJ_PLAYER].front()->Get_Info().fX, m_ObjList[OBJ_PLAYER].front()->Get_Info().fY, L"Power Up!!!!");
 
-	// 폰트 출력
-
-	//lstrcpy(m_szFPS, L"Hello");
-	//TextOut(m_hDC, 50, 50, m_szFPS, lstrlen(m_szFPS));
-	// 1. dc 2, 3. 출력할 윈도우 left, top 좌표, 4. 출력할 문자열 5. 문자열 버퍼 크기
-	
-	//RECT rc{ 0, 0, 50, 50 };
-	//DrawText(m_hDC, m_szFPS, lstrlen(m_szFPS), &rc, DT_RIGHT);
-	// 1. dc 2. 출력할 문자열 3. 문자열 버퍼 크기 4. 출력할 렉트 주소, 5. 출력 옵션
-
-	//TCHAR	szBuff[32] = L"";
-	// 소수점 자리 출력이 불가능하다. winapi 라이브러리에서 제공하는 함수
-	//wsprintf(szBuff, L"Bullet : %d", m_ObjList[OBJ_BULLET].size());
-
-	// visual c++ 라이브러리에서 제공(모든 서식 문자를 지원)
-	//swprintf_s(szBuff, L"Bullet : %f", 3.14f);
-	//TextOut(m_hDC, 50, 50, szBuff, lstrlen(szBuff));
 	
 	++m_iFPS;
 
@@ -135,14 +103,6 @@ void CMainGame::Render(void)
 
 void CMainGame::Release(void)
 {
-
-	/*Safe_Delete<CObj*>(m_pPlayer);
-
-	for (auto& iter : m_BulletList)
-		Safe_Delete<CObj*>(iter);
-
-	m_BulletList.clear();*/
-
 	for (int i = 0; i < OBJ_END; ++i)
 	{
 		for (auto& iter : m_ObjList[i])
@@ -152,7 +112,5 @@ void CMainGame::Release(void)
 	}
 
 	ReleaseDC(g_hWnd, m_hDC);	
+	Safe_Delete<CUI*>(m_pUI);
 }
-
-// 1. w,a,s,d 키를 눌러 4방향 총알쏘기
-// 2. 가로 세로가 100씩 작은 렉트를 만들고 사각형 범위를 벗어나면 미사일을 삭제하라

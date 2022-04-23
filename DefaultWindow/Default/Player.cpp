@@ -5,7 +5,6 @@
 
 CPlayer::CPlayer()
 {
-	Initialize();
 }
 
 CPlayer::~CPlayer()
@@ -15,6 +14,8 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize(void)
 {
+	m_iHeart = 5;
+
 	m_tInfo.fX = 400.f;
 	m_tInfo.fY = 300.f;
 
@@ -22,29 +23,40 @@ void CPlayer::Initialize(void)
 	m_tInfo.fCY = 100.f;
 
 	m_fSpeed = 10.f;
-	m_fDiagonal = 100.f;
+	m_fDiagonal = 70.f;
 
-	m_fAngle2 = 0.f;
-	m_fAngle3 = 180.f;
+	m_fAngle_Shield = 90.f;
+	m_bBoost = true;
 
 
-	m_pShield2 = new CShield();
-	m_pShield3 = new CShield();
-
+	if (m_bBoost)	// 부스트 모드이면, 쉴드 2개 생성
+	{
+		for (int i = 0; i < 2; ++i)
+		{
+			m_pShieldList->push_back(CAbstractFactory<CShield>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle_Shield));
+		}
+	}
 }
 
 int CPlayer::Update(void)
 {
 	if (m_bDead)
-		return OBJ_DEAD;
-	// 연산을 진행
-	Key_Input();
-	m_fAngle2 += 3.f;
-	m_fAngle3 += 3.f;
-	
+	{
+		if (m_iHeart)
+			--m_iHeart;
+		else
+			return OBJ_END;
+	}
 
-	// 모든 연산이 끝난 뒤에 최종적인 좌표를 완성
+	// 키입력시 연산
+	Key_Input();
+
+	// 쉴드 좌표 움직이게
+	m_fAngle_Shield += 3.f;
+
+	// 최종좌표 전달
 	Update_Rect();
+
 	return OBJ_NOEVENT;
 }
 
@@ -52,19 +64,17 @@ void CPlayer::Late_Update(void)
 {
 	m_tPosin.x = long(m_tInfo.fX + (m_fDiagonal * cosf((m_fAngle * PI) / 180.f)));
 	m_tPosin.y = long(m_tInfo.fY - (m_fDiagonal * sinf((m_fAngle * PI) / 180.f)));
-	
 
+	for (auto& _shield : *m_pShieldList)
+	{
+		m_tPosin_Shield.x = long(m_tInfo.fX + (m_fDiagonal * cosf((m_fAngle_Shield * PI) / 180.f)));
+		m_tPosin_Shield.y = long(m_tInfo.fY - (m_fDiagonal * sinf((m_fAngle_Shield * PI) / 180.f)));
 
-	m_tPosin_Shield.x = long(m_tInfo.fX + (m_fDiagonal * cosf((m_fAngle2 * PI) / 180.f)));
-	m_tPosin_Shield.y = long(m_tInfo.fY - (m_fDiagonal * sinf((m_fAngle2 * PI) / 180.f)));
-	m_pShield2->Set_Pos(m_tPosin_Shield.x, m_tPosin_Shield.y);
-	m_pShield2->Late_Update();
+		_shield->Set_Pos(m_tPosin_Shield.x, m_tPosin_Shield.y);
+		_shield->Late_Update();
 
-	m_tPosin_Shield.x = long(m_tInfo.fX + (m_fDiagonal * cosf((m_fAngle3 * PI) / 180.f)));
-	m_tPosin_Shield.y = long(m_tInfo.fY - (m_fDiagonal * sinf((m_fAngle3 * PI) / 180.f)));
-	m_pShield3->Set_Pos(m_tPosin_Shield.x, m_tPosin_Shield.y);
-	m_pShield3->Late_Update();
-
+		m_fAngle_Shield += 180.f;
+	}
 }
 
 void CPlayer::Render(HDC hDC)
@@ -74,9 +84,10 @@ void CPlayer::Render(HDC hDC)
 	MoveToEx(hDC, m_tInfo.fX, m_tInfo.fY, NULL);
 	LineTo(hDC, m_tPosin.x, m_tPosin.y);
 
-	m_pShield2->Render(hDC);
-	m_pShield3->Render(hDC);
-
+	for (auto& _shield : *m_pShieldList)
+	{
+		_shield->Render(hDC);
+	}
 }
 
 void CPlayer::Release(void)
@@ -85,115 +96,100 @@ void CPlayer::Release(void)
 
 void CPlayer::Key_Input(void)
 {
-	// GetKeyState
-	/*if (GetAsyncKeyState(VK_LEFT))
-		m_tInfo.fX -= m_fSpeed;
 
-	if (GetAsyncKeyState(VK_RIGHT))
-		m_tInfo.fX += m_fSpeed;
-
-	if (GetAsyncKeyState(VK_UP))
-		m_tInfo.fY -= m_fSpeed;
-
-	if (GetAsyncKeyState(VK_DOWN))
-
-		m_tInfo.fY += m_fSpeed;*/
-
+	// 총알 발사
 	if (GetAsyncKeyState(VK_SPACE))
 	{
-		m_pBullet->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
-		
-		// 쉴드2 총알 발사
-		POINT temp = { dynamic_cast<CShield*>(m_pShield2)->Get_PosinPoint().x,
-					   dynamic_cast<CShield*>(m_pShield2)->Get_PosinPoint().y };
-		m_pBullet->push_back(CAbstractFactory<CBulletDefault>::Create((float)temp.x, (float)temp.y, m_fAngle));
+		if (m_bBoost)
+		{
+			m_pBullet->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
+		}
+		else
+		{
+			m_pBullet->push_back(CAbstractFactory<CBulletDefault>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
+		}
 
-		// 쉴드3 총알 발사
-		temp = { dynamic_cast<CShield*>(m_pShield3)->Get_PosinPoint().x,
-				 dynamic_cast<CShield*>(m_pShield3)->Get_PosinPoint().y };
-		m_pBullet->push_back(CAbstractFactory<CBulletDefault>::Create((float)temp.x, (float)temp.y, m_fAngle));
+
+		for (auto& _shield : *m_pShieldList)
+		{
+			POINT temp = { dynamic_cast<CShield*>(_shield)->Get_PosinPoint().x,
+				dynamic_cast<CShield*>(_shield)->Get_PosinPoint().y };
+			m_pBullet->push_back(CAbstractFactory<CBulletDefault>::Create((float)temp.x, (float)temp.y, m_fAngle));
+		}
 	}
-		
 
+	// 포신 회전
 	if (GetAsyncKeyState('A'))
 		m_fAngle += 5.f;
-
-	/*if (GetAsyncKeyState('S'))
-		m_pBullet->push_back(Create_Bullet(DIR_DOWN));*/
 
 	if (GetAsyncKeyState('D'))
 		m_fAngle -= 5.f;
 
-
-	/*if (GetAsyncKeyState(VK_LEFT))
-	{
-		if (GetAsyncKeyState(VK_DOWN))
-		{
-			m_tInfo.fX -= m_fSpeed / sqrtf(2.f);
-			m_tInfo.fY += m_fSpeed / sqrtf(2.f);
-		}
-		else if (GetAsyncKeyState(VK_UP))
-		{
-			m_tInfo.fX -= m_fSpeed / sqrtf(2.f);
-			m_tInfo.fY -= m_fSpeed / sqrtf(2.f);
-		}
-
-		else
-			m_tInfo.fX -= m_fSpeed;
-	}
-	
-	else if (GetAsyncKeyState(VK_RIGHT))
-	{
-		if (GetAsyncKeyState(VK_DOWN))
-		{
-			m_tInfo.fX += m_fSpeed / sqrtf(2.f);
-			m_tInfo.fY += m_fSpeed / sqrtf(2.f);
-		}
-		else if (GetAsyncKeyState(VK_UP))
-		{
-			m_tInfo.fX += m_fSpeed / sqrtf(2.f);
-			m_tInfo.fY -= m_fSpeed / sqrtf(2.f);
-		}
-
-		else
-			m_tInfo.fX += m_fSpeed;
-	}
-		
-	else if (GetAsyncKeyState(VK_UP))
-		m_tInfo.fY -= m_fSpeed;
-
-	else if (GetAsyncKeyState(VK_DOWN))
-		m_tInfo.fY += m_fSpeed;*/
-
-
+	// 플레이어 이동
 	if (GetAsyncKeyState(VK_LEFT))
 	{
-		m_tInfo.fX += m_fSpeed * cosf(((m_fAngle + 90.f) * PI) / 180.f);
-		m_tInfo.fY -= m_fSpeed * sinf(((m_fAngle + 90.f) * PI) / 180.f);
+		if (m_tInfo.fX > 0)					// 화면 이탈 방지
+		{
+			if (GetAsyncKeyState(VK_DOWN))
+			{
+				if (m_tInfo.fY < 600)		// 화면 이탈 방지
+				{
+					m_tInfo.fX -= m_fSpeed / sqrtf(2.f);
+					m_tInfo.fY += m_fSpeed / sqrtf(2.f);
+				}
+			}
+			else if (GetAsyncKeyState(VK_UP))
+			{
+				if (m_tInfo.fY > 0)			// 화면 이탈 방지
+				{
+					m_tInfo.fX -= m_fSpeed / sqrtf(2.f);
+					m_tInfo.fY -= m_fSpeed / sqrtf(2.f);
+				}
+			}
+			else
+				m_tInfo.fX -= m_fSpeed;
+		}
+
 	}
 
-	if (GetAsyncKeyState(VK_RIGHT))
+	else if (GetAsyncKeyState(VK_RIGHT))
 	{
-		m_tInfo.fX -= m_fSpeed * cosf(((m_fAngle + 90.f) * PI) / 180.f);
-		m_tInfo.fY += m_fSpeed * sinf(((m_fAngle + 90.f) * PI) / 180.f);
+		if (m_tInfo.fX < 800)				// 화면 이탈 방지
+		{
+			if (GetAsyncKeyState(VK_DOWN))
+			{
+				if (m_tInfo.fY < 600)		// 화면 이탈 방지
+				{
+					m_tInfo.fX += m_fSpeed / sqrtf(2.f);
+					m_tInfo.fY += m_fSpeed / sqrtf(2.f);
+				}
+			}
+			else if (GetAsyncKeyState(VK_UP))
+			{
+				if (m_tInfo.fY > 0)			// 화면 이탈 방지
+				{
+					m_tInfo.fX += m_fSpeed / sqrtf(2.f);
+					m_tInfo.fY -= m_fSpeed / sqrtf(2.f);
+				}
+			}
+			else
+				m_tInfo.fX += m_fSpeed;
+		}
 	}
 
-	if (GetAsyncKeyState(VK_UP))
+	else if (GetAsyncKeyState(VK_UP))
 	{
-		m_tInfo.fX += m_fSpeed * cosf((m_fAngle * PI) / 180.f);
-		m_tInfo.fY -= m_fSpeed * sinf((m_fAngle * PI) / 180.f);
+		if (m_tInfo.fY > 0)		// 화면 이탈 방지
+		{
+			m_tInfo.fY -= m_fSpeed;
+		}
 	}
-		
-	if (GetAsyncKeyState(VK_DOWN))
+
+	else if (GetAsyncKeyState(VK_DOWN))
 	{
-		m_tInfo.fX -= m_fSpeed * cosf((m_fAngle * PI) / 180.f);
-		m_tInfo.fY += m_fSpeed * sinf((m_fAngle * PI) / 180.f);
+		if (m_tInfo.fY < 600)	// 화면 이탈 방지
+		{
+			m_tInfo.fY += m_fSpeed;
+		}
 	}
-
-}
-
-CObj* CPlayer::Create_Bullet(DIRECTION eDir)
-{
-	CObj*		pBullet = CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, eDir);
-	return pBullet;
 }

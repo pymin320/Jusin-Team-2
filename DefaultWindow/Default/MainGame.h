@@ -7,6 +7,8 @@
 #include "AbstractFactory.h"
 
 #include "CPattern.h"
+#include "UI.h"
+
 class CMainGame
 {
 public:				// 생성자, 소멸자
@@ -26,6 +28,7 @@ public:
 private:
 
 	HDC		m_hDC;
+	CUI*	m_pUI;
 	CObj*	m_pPlayer;
 
 	//list<PATTERN*> m_PatternList;
