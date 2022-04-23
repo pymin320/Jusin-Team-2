@@ -22,8 +22,18 @@ CMainGame::~CMainGame()
 
 void CMainGame::Initialize(void)
 {
-	m_hDC = GetDC(g_hWnd);  
+	m_hDC = GetDC(g_hWnd);
+	m_ObjList[OBJ_PLAYER].push_back(CAbstractFactory<CPlayer>::Create());
+	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
 
+
+
+	for (int i = 0; i < 5; ++i)
+	{
+
+		m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(float(rand() % 56 + 13) * 10, float(rand() % 30 + 13) * 10, 0));
+	}
+}
 
 #pragma region 복습
 
@@ -37,16 +47,7 @@ void CMainGame::Initialize(void)
 
 #pragma endregion 복습
 
-	m_ObjList[OBJ_PLAYER].push_back(CAbstractFactory<CPlayer>::Create());
-	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
-
-
-
-	for (int i = 0; i < 5; ++i)
-	{
-
-		m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(float(rand() % 56 + 13) * 10, float(rand() % 30 + 13) * 10, 0));
-	}
+	
 
 
 void CMainGame::Update(void)
@@ -88,17 +89,6 @@ void CMainGame::Late_Update(void)
 	//CCollisionMgr::Collision_Sphere(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
 
 }
-
-void CMainGame::Late_Update(void)
-{
-	for (int i = 0; i < OBJ_END; ++i)
-	{
-		for (auto& iter : m_ObjList[i])
-			iter->Late_Update();
-	}
-
-}
-
 
 void CMainGame::Render(void)
 {

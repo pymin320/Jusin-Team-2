@@ -9,7 +9,7 @@ CMonster::CMonster(/*MOBTYPE eMob*/)
 
 CMonster::~CMonster()
 {
-
+}
 void CMonster::Initialize(void)
 {	
 
