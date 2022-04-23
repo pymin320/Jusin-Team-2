@@ -5,7 +5,7 @@
 #include "Mouse.h"
 #include "CollisionMgr.h"
 
-
+int		g_iScore;
 
 CMainGame::CMainGame()
 	: m_dwTime(GetTickCount())

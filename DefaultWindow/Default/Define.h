@@ -12,5 +12,5 @@
 #define		OBJ_NOEVENT  0
 #define		OBJ_DEAD	 1
 
-
+extern int			g_iScore;
 extern HWND			g_hWnd;
