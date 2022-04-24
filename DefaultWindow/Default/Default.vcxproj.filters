@@ -48,18 +48,24 @@
     </Filter>
     <Filter Include="0. jini">
       <UniqueIdentifier>{3573e88a-dc96-4bd1-94f3-6a97255a3993}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="JeongEun_0423">
-      <UniqueIdentifier>{f7258cd7-4a82-4b7c-8672-3536e649aeab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="JeongEun_0423\02. Monster">
-      <UniqueIdentifier>{e0ab47df-43ed-4ed6-be54-3523b7b16a3a}</UniqueIdentifier>
+
     </Filter>
     <Filter Include="01. Obj\pym_Boss">
       <UniqueIdentifier>{e5c387c3-c156-4271-be3c-48197b74219f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Obj\02. Monster\JeongEun">
+      <UniqueIdentifier>{f7258cd7-4a82-4b7c-8672-3536e649aeab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\02. Monster\JeongEun\02. Monster">
+      <UniqueIdentifier>{e0ab47df-43ed-4ed6-be54-3523b7b16a3a}</UniqueIdentifier>
+
+    </Filter>
+   
+   
+   
     <Filter Include="Pattern">
       <UniqueIdentifier>{d2647cca-9a25-4b88-a5a8-baac248f3504}</UniqueIdentifier>
+
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -110,7 +116,7 @@
     </ClInclude>
     <ClInclude Include="Monster.h">
       <Filter>01. Obj\02. Monster</Filter>
-      <Filter>JeongEun_0423\02. Monster</Filter>
+      <Filter>01. Obj\02. Monster\JeongEun\02. Monster</Filter>
     </ClInclude>
     <ClInclude Include="Mouse.h">
       <Filter>01. Obj\03. Mouse</Filter>
@@ -167,7 +173,7 @@
     </ClCompile>
     <ClCompile Include="Monster.cpp">
       <Filter>01. Obj\02. Monster</Filter>
-      <Filter>JeongEun_0423\02. Monster</Filter>
+      <Filter>01. Obj\02. Monster\JeongEun\02. Monster</Filter>
     </ClCompile>
     <ClCompile Include="Mouse.cpp">
       <Filter>01. Obj\03. Mouse</Filter>
