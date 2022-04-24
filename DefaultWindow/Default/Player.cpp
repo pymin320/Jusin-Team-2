@@ -73,6 +73,7 @@ int CPlayer::Update(void)
 {
 	if (m_bDead)
 	{
+
 		if (m_iHeart)
 		{
 			--m_iHeart;
@@ -204,6 +205,7 @@ void CPlayer::Key_Input(void)
 	{		
 		if (GetTickCount() - m_Time2 > 150)
 		{
+
 			if (m_bShield)
 			{
 				m_pBullet->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));

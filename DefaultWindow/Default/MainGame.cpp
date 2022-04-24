@@ -23,7 +23,7 @@ CMainGame::~CMainGame()
 void CMainGame::Initialize(void)
 {
 	m_hDC = GetDC(g_hWnd);
-	m_ObjList[OBJ_PLAYER].push_back(CAbstractFactory<CPlayer>::Create("아군"));
+	m_ObjList[OBJ_PLAYER].push_back(CAbstractFactory<CPlayer>::Create());
 	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
 	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_HDC(m_hDC);
 
@@ -52,9 +52,14 @@ void CMainGame::Initialize(void)
 	////추격 몬스터(ChaseMonster)
 	//m_ObjList[OBJ_CHMONSTER].push_back(CAbstractFactory<CMonster>::Create(100.f, 100.f, MOB_CH));
 	//m_ObjList[OBJ_CHMONSTER].push_back(CAbstractFactory<CMonster>::Create(700.f, 100.f, MOB_CH));
-	//	
-	//m_ObjList[OBJ_BOSS].push_back(CAbstractFactory<CBoss>::Create(400, -200, 0, "적군"));
-	//dynamic_cast<CBoss*>(m_ObjList[OBJ_BOSS].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
+		
+	
+	//m_pBossFront = dynamic_cast<CBoss*>(m_ObjList[OBJ_MONSTER].back())->Set_BossList();
+	//m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CBossFront>::Create());
+	//m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<>::Create());
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CBoss>::Create(400, -200, 0));
+	dynamic_cast<CBoss*>(m_ObjList[OBJ_MONSTER].back())->Get_BossList();
+	m_ObjList[OBJ_MONSTER].push_back(dynamic_cast<CBoss*>(m_ObjList[OBJ_MONSTER].back())->Get_BossList());
 
 	// UI 그리기 용도
 	//m_pUI = new CUI();
