@@ -25,29 +25,47 @@ void CMainGame::Initialize(void)
 	m_hDC = GetDC(g_hWnd);
 	m_ObjList[OBJ_PLAYER].push_back(CAbstractFactory<CPlayer>::Create("아군"));
 	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
-
+	
 	//공격 몬스터 생성
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(200, /*float((rand() % 30 + 10) * 10)*/250.f, MOB_FW));
-	((CMonster*)m_ObjList[OBJ_MONSTER].front())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-	m_ObjList[OBJ_MONSTER].front()->Side("적군");
-	//m_ObjList[OBJ_FWMONSTER].push_back(CAbstractFactory<CMonster>::Create(300, /*float((rand() % 30 + 10) * 10)*/250.f, MOB_FW));
-	//m_ObjList[OBJ_FWMONSTER].push_back(CAbstractFactory<CMonster>::Create(400, /*float((rand() % 30 + 10) * 10)*/250.f, MOB_FW));
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(200,250.f, MOB_FW));
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+	
+    m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(300, 250.f, MOB_FW));
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(400, 250.f, MOB_FW));
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 
 	////수비 몬스터 생성
-	//m_ObjList[OBJ_DFMONSTER].push_back(CAbstractFactory<CMonster>::Create(125.f, 75.f, MOB_DF));
-	//m_ObjList[OBJ_DFMONSTER].push_back(CAbstractFactory<CMonster>::Create(225.f, 75.f, MOB_DF));
-	//m_ObjList[OBJ_DFMONSTER].push_back(CAbstractFactory<CMonster>::Create(325.f, 75.f, MOB_DF));
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(125.f, 75.f, MOB_DF));
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 
-	//m_ObjList[OBJ_DFMONSTER].push_back(CAbstractFactory<CMonster>::Create(475.f, 75.f, MOB_DF));
-	//m_ObjList[OBJ_DFMONSTER].push_back(CAbstractFactory<CMonster>::Create(575.f, 75.f, MOB_DF));
-	//m_ObjList[OBJ_DFMONSTER].push_back(CAbstractFactory<CMonster>::Create(675.f, 75.f, MOB_DF));
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(225.f, 75.f, MOB_DF));
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(325.f, 75.f, MOB_DF));
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(475.f, 75.f, MOB_DF));
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(575.f, 75.f, MOB_DF));
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(675.f, 75.f, MOB_DF));
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 
 	////추격 몬스터(ChaseMonster)
-	//m_ObjList[OBJ_CHMONSTER].push_back(CAbstractFactory<CMonster>::Create(100.f, 100.f, MOB_CH));
-	//m_ObjList[OBJ_CHMONSTER].push_back(CAbstractFactory<CMonster>::Create(700.f, 100.f, MOB_CH));
-	//	
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(100.f, 100.f, MOB_CH));
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(700.f, 100.f, MOB_CH));
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+
+	
 	//m_ObjList[OBJ_BOSS].push_back(CAbstractFactory<CBoss>::Create(400, -200, 0, "적군"));
 	//dynamic_cast<CBoss*>(m_ObjList[OBJ_BOSS].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
+	
 
 	// UI 그리기 용도
 	
@@ -83,6 +101,7 @@ void CMainGame::Late_Update(void)
 		for (auto& iter : m_ObjList[i])
 			iter->Late_Update();
 	}
+	
 	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
 	//CCollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BULLET]);
 	//CCollisionMgr::Collision_Rect(m_ObjList[OBJ_BOSS], m_ObjList[OBJ_BULLET]);
