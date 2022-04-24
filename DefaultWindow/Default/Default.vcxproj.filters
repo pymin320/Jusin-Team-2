@@ -46,21 +46,17 @@
     <Filter Include="01. Obj\04. Shield">
       <UniqueIdentifier>{3d1f2495-29e9-439b-9078-b86dbe7b6b87}</UniqueIdentifier>
     </Filter>
-
     <Filter Include="0. jini">
       <UniqueIdentifier>{3573e88a-dc96-4bd1-94f3-6a97255a3993}</UniqueIdentifier>
-	</Filter>
-
+    </Filter>
     <Filter Include="JeongEun_0423">
       <UniqueIdentifier>{f7258cd7-4a82-4b7c-8672-3536e649aeab}</UniqueIdentifier>
     </Filter>
     <Filter Include="JeongEun_0423\02. Monster">
       <UniqueIdentifier>{e0ab47df-43ed-4ed6-be54-3523b7b16a3a}</UniqueIdentifier>
-	</Filter>
+    </Filter>
     <Filter Include="01. Obj\pym_Boss">
       <UniqueIdentifier>{e5c387c3-c156-4271-be3c-48197b74219f}</UniqueIdentifier>
-
-
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -127,17 +123,18 @@
     </ClInclude>
     <ClInclude Include="CPattern.h">
       <Filter>헤더 파일</Filter>
-
     </ClInclude>
     <ClInclude Include="UI.h">
       <Filter>0. jini</Filter>
-
     </ClInclude>
     <ClInclude Include="CBoss.h">
       <Filter>01. Obj\pym_Boss</Filter>
     </ClInclude>
     <ClInclude Include="CBossFront.h">
       <Filter>01. Obj\pym_Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>0. jini</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -177,18 +174,18 @@
     </ClCompile>
     <ClCompile Include="CPattern.cpp">
       <Filter>소스 파일</Filter>
-
     </ClCompile>
     <ClCompile Include="UI.cpp">
       <Filter>0. jini</Filter>
-
-
     </ClCompile>
     <ClCompile Include="CBoss.cpp">
       <Filter>01. Obj\pym_Boss</Filter>
     </ClCompile>
     <ClCompile Include="CBossFront.cpp">
       <Filter>01. Obj\pym_Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>0. jini</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
