@@ -14,7 +14,8 @@ public:
 public:
 	void	Set_BulletList(list<CObj*>* pBullet) { m_pBullet = pBullet; }
 	int		Get_Heart() { return m_iHeart; }
-
+	void Set_EnemyList(list<CObj*>* pEnemy) { m_EnemyList = pEnemy; }
+	void TempFunc();//필살기
 public:
 	virtual void Initialize(void) override;
 	virtual int	 Update(void) override;
@@ -30,7 +31,7 @@ private:
 	list<CObj*>* m_pBullet;					//메인에서 가져온거
 	list <CObj*>	m_ShieldList;
 	list<CObj*>* m_pShieldList = &m_ShieldList;
-
+	list<CObj*>* m_EnemyList;
 	// 모양 관련
 	POINT			PolygonPoint[6];
 	POINT			m_tPosin;

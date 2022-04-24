@@ -150,6 +150,7 @@
   <ItemGroup>
     <ClInclude Include="AbstractFactory.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="BulletBomb.h" />
     <ClInclude Include="Bullet_Default.h" />
     <ClInclude Include="CBoss.h" />
     <ClInclude Include="CBossFront.h" />
@@ -174,6 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="BulletBomb.cpp" />
     <ClCompile Include="Bullet_Default.cpp" />
     <ClCompile Include="CBoss.cpp" />
     <ClCompile Include="CBossFront.cpp" />

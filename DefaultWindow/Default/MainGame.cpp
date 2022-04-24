@@ -27,9 +27,13 @@ void CMainGame::Initialize(void)
 	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
 
 	//공격 몬스터 생성
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(200, /*float((rand() % 30 + 10) * 10)*/250.f, MOB_FW));
-	((CMonster*)m_ObjList[OBJ_MONSTER].front())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-	m_ObjList[OBJ_MONSTER].front()->Side("적군");
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(200, /*float((rand() % 30 + 10) * 10)*/150.f, MOB_FW));
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+	m_ObjList[OBJ_MONSTER].back()->Set_Angle(-90); // 수정필요 
+
+	//m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(300, /*float((rand() % 30 + 10) * 10)*/250.f, MOB_FW));
+	//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+
 	//m_ObjList[OBJ_FWMONSTER].push_back(CAbstractFactory<CMonster>::Create(300, /*float((rand() % 30 + 10) * 10)*/250.f, MOB_FW));
 	//m_ObjList[OBJ_FWMONSTER].push_back(CAbstractFactory<CMonster>::Create(400, /*float((rand() % 30 + 10) * 10)*/250.f, MOB_FW));
 

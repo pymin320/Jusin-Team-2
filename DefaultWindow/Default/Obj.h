@@ -16,16 +16,12 @@ public:
 	}
 	void		Set_Dir(DIRECTION eDir) { m_eDir = eDir; }
 
-
-
 	void		Set_Dead()				{ m_bDead = true; }
 	void		Set_Angle(float _fAngle) { m_fAngle = _fAngle; }
-
 
 	const INFO&		Get_Info(void) const { return m_tInfo; }
 	const RECT&		Get_Rect(void) const { return m_tRect; }
 	void Side(string _Side) { m_Side = _Side; }
-
 
 public:
 	virtual		void	Initialize(void)	PURE;
@@ -39,7 +35,6 @@ public:
 protected:
 	void		Update_Rect(void);
 	
-
 protected:
 	INFO		m_tInfo;
 	RECT		m_tRect;

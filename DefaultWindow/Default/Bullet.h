@@ -15,14 +15,9 @@ public:
 	virtual void Render(HDC hDC) override;
 	virtual void Release(void) override;
 	void SetDirection(const POINT& _direction);//방향설정
-	void Update_Rect_Missile(void);
 
 
 private :
-	//POINT m_tPosin;
-	//float m_fAngle2;
-	float m_fDiagonal;
-	//RECT m_Misille;
 	POINT m_Direction;
 };
 
