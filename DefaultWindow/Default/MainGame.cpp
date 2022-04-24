@@ -62,19 +62,19 @@ void CMainGame::Initialize(void)
 	m_ObjList[OBJ_CHMONSTER].push_back(CAbstractFactory<CMonster>::Create(700.f, 100.f, MOB_CH));
 
 
-		m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(float(rand() % 56 + 13) * 10, float(rand() % 30 + 13) * 10, 0,"적군"));
+		//m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(float(rand() % 56 + 13) * 10, float(rand() % 30 + 13) * 10, 0,"적군"));
  
-    m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(float(rand() % 56 + 13) * 10, float(rand() % 30 + 13) * 10, 0));
+    //m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(float(rand() % 56 + 13) * 10, float(rand() % 30 + 13) * 10, 0));
 		
 		//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-		((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetPatternBulletList(&m_ObjList[OBJ_BULLET]);
-	}
+		//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetPatternBulletList(&m_ObjList[OBJ_BULLET]);
+	
 
 
-	m_ObjList[OBJ_BOSS].push_back(CAbstractFactory<CBoss>::Create(400, -200, 0, "적군"));
-	dynamic_cast<CBoss*>(m_ObjList[OBJ_BOSS].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
+	//m_ObjList[OBJ_BOSS].push_back(CAbstractFactory<CBoss>::Create(400, -200, 0, "적군"));
+	//dynamic_cast<CBoss*>(m_ObjList[OBJ_BOSS].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
 
-}
+
 
 #pragma region 복습
 
@@ -92,6 +92,7 @@ void CMainGame::Initialize(void)
 
 
 	// UI 그리기 용도
+	
 	m_pUI = new CUI();
 	m_pUI->Set_pPlayer(m_ObjList[OBJ_PLAYER].front());
 }

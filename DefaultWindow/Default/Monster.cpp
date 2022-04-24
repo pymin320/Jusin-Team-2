@@ -104,13 +104,13 @@ void CMonster::Release(void)
 	//end
 }
 
-void CMonster::SetBulletList(list<CObj*>* _pPattern)
-{
-	m_pBullet = _pPattern;
-}
-
-void CMonster::SetPatternBulletList(list<CObj*>* pBullet)
-{
-
-	m_pPattern->Set_BulletList(pBullet);
-}
+//void CMonster::SetBulletList(list<CObj*>* _pPattern)
+//{
+//	//m_pBullet = _pPattern;
+//}
+//
+//void CMonster::SetPatternBulletList(list<CObj*>* pBullet)
+//{
+//
+//	//m_pPattern->Set_BulletList(pBullet);
+//}

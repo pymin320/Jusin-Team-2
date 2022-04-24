@@ -49,7 +49,7 @@ void CPlayer::Initialize(void)
 		
 		for (int i = 0; i < 2; ++i)
 		{
-			m_pShieldList->push_back(CAbstractFactory<CShield>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle_Shield));
+			//m_pShieldList->push_back(CAbstractFactory<CShield>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle_Shield));
 		}
 	}
 }
@@ -144,11 +144,11 @@ void CPlayer::Key_Input(void)
 	{
 		if (m_bBoost)
 		{
-			m_pBullet->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
+			//m_pBullet->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
 		}
 		else
 		{
-			m_pBullet->push_back(CAbstractFactory<CBulletDefault>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
+			//m_pBullet->push_back(CAbstractFactory<CBulletDefault>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
 		}
 
 
@@ -157,7 +157,7 @@ void CPlayer::Key_Input(void)
 			POINT temp = { dynamic_cast<CShield*>(_shield)->Get_PosinPoint().x,
 			dynamic_cast<CShield*>(_shield)->Get_PosinPoint().y };
 			//m_pPattern->Attack(temp);
-			m_pBullet->push_back(CAbstractFactory<CBulletDefault>::Create((float)temp.x, (float)temp.y, m_fAngle));
+			//m_pBullet->push_back(CAbstractFactory<CBulletDefault>::Create((float)temp.x, (float)temp.y, m_fAngle));
 		}
 
 	}
