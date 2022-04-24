@@ -135,8 +135,7 @@ void CMonster::Late_Update(void)
 	}
 
 	
-  	m_pPattern->Update(m_Posin, 1);
-}
+
 
 
 	m_pPattern->Set_Angle(m_fAngle);
