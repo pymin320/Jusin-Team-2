@@ -46,7 +46,6 @@ private:
 	BOOL			m_bBoost;		// 부스트 모드 여부
 	int				m_iHeart;		// 플레이어 목숨
 	DWORD			m_Time = 0;
-	int				m_iHeart2;		// 플레이어 목숨
 
 	//UI
 	CUI*			m_pUI;
