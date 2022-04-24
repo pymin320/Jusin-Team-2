@@ -59,7 +59,7 @@ int CPlayer::Update(void)
 {
 	if (m_bDead)
 	{
-		if (m_iHeart)
+		if ( 1 <= m_iHeart)
 			--m_iHeart;
 		else
 			return OBJ_END;
@@ -146,12 +146,12 @@ void CPlayer::Key_Input(void)
 		if (m_bBoost)
 		{
 			m_pBullet->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
-			m_pBullet->back()->Side("적군");
+			m_pBullet->back()->Side("아군");
 		}
 		else
 		{
 			m_pBullet->push_back(CAbstractFactory<CBulletDefault>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
-			m_pBullet->back()->Side("적군");
+			m_pBullet->back()->Side("아군");
 		}
 
 

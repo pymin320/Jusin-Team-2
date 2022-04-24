@@ -12,11 +12,10 @@ public:
 	~CAbstractFactory(){}
 
 public:
-	static CObj*	Create(string _Side)
+	static CObj*	Create()
 	{
 		CObj*	pObj = new T;
 		pObj->Initialize();
-		pObj->Side(_Side);
 		return pObj;
 	}
 
@@ -40,7 +39,7 @@ public:
 
 		return pObj;
 	}
-	static CObj* Create(float _fX, float _fY, float _fAngle, CPattern* m_Pattern)
+	/*static CObj* Create(float _fX, float _fY, float _fAngle, CPattern* m_Pattern)
 	{
 		CObj* pObj = new T;
 
@@ -49,7 +48,7 @@ public:
 		pObj->Set_Angle(_fAngle);
 		dynamic_cast<CMonster*>(pObj)->SetPattern(m_Pattern);
 		return pObj;
-	}
+	}*/
 	static CObj* Create(float _fX, float _fY, DIRECTION eDir = DIR_END)
 	{
 		CObj* pObj = new T;
