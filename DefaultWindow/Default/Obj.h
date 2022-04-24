@@ -15,9 +15,9 @@ public:
 		m_tInfo.fY = _fY;
 	}
 	void		Set_Dir(DIRECTION eDir) { m_eDir = eDir; }
-
-	void		Set_Dead()				{ m_bDead = true; }
+	void		Set_Dead() { m_bDead = true; }
 	void		Set_Angle(float _fAngle) { m_fAngle = _fAngle; }
+	void		Set_Speed(float _fSpeed) { m_fSpeed = _fSpeed; }
 
 	const INFO&		Get_Info(void) const { return m_tInfo; }
 	const RECT&		Get_Rect(void) const { return m_tRect; }

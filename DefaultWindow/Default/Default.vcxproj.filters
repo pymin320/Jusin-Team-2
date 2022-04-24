@@ -124,6 +124,9 @@
     <ClInclude Include="Bullet_Default.h">
       <Filter>01. Obj\01. Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="CPattern.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="UI.h">
       <Filter>0. jini</Filter>
     </ClInclude>
@@ -138,6 +141,9 @@
     </ClInclude>
     <ClInclude Include="BulletBomb.h">
       <Filter>01. Obj\01. Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>0. jini</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +181,9 @@
     <ClCompile Include="Bullet_Default.cpp">
       <Filter>01. Obj\01. Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="CPattern.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
     <ClCompile Include="UI.cpp">
       <Filter>0. jini</Filter>
     </ClCompile>
@@ -189,6 +198,9 @@
     </ClCompile>
     <ClCompile Include="BulletBomb.cpp">
       <Filter>01. Obj\01. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>0. jini</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
