@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Monster.h"
-#include "Player.h"""
+
+#include <random>
 
 
 CMonster::CMonster() {}
@@ -12,10 +13,13 @@ CMonster::CMonster(MOBTYPE eType)
 
 CMonster::~CMonster()
 {
+	//hong modify
+	Release();
+	//end
 }
 void CMonster::Initialize(void)
 {	
-	
+
 	
 	
 	if (m_eType == MOB_FW)
@@ -40,6 +44,8 @@ void CMonster::Initialize(void)
 		
 		m_fSpeed = 2.f;
 	}
+  	m_pPattern = new CPattern;
+
 }
 
   
@@ -48,6 +54,7 @@ int CMonster::Update(void)
 {
 	if (m_bDead)
 		return OBJ_DEAD;
+
 
 	if (m_eType == MOB_FW)
 	{
@@ -62,6 +69,7 @@ int CMonster::Update(void)
 	
 	}
 
+
 	Update_Rect();
 
 	return OBJ_NOEVENT;
@@ -69,6 +77,7 @@ int CMonster::Update(void)
 
 void CMonster::Late_Update(void)
 {
+
 	if (m_eType == MOB_FW)
 	{
 		if (100 >= m_tRect.left || WINCX - 100 <= m_tRect.right)
@@ -79,6 +88,7 @@ void CMonster::Late_Update(void)
 		if (WINCY - 400 <= m_tRect.bottom)
 			m_fSpeed = 0;
 	}
+  	m_pPattern->Update(m_Posin, 1);
 }
 
 void CMonster::Render(HDC hDC)
@@ -88,4 +98,19 @@ void CMonster::Render(HDC hDC)
 
 void CMonster::Release(void)
 {
+	//hong modify
+	delete m_pPattern;
+	m_pPattern = nullptr;
+	//end
+}
+
+void CMonster::SetBulletList(list<CObj*>* _pPattern)
+{
+	m_pBullet = _pPattern;
+}
+
+void CMonster::SetPatternBulletList(list<CObj*>* pBullet)
+{
+
+	m_pPattern->Set_BulletList(pBullet);
 }

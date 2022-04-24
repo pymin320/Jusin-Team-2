@@ -7,6 +7,7 @@
 #include "AbstractFactory.h"
 
 #include "CPattern.h"
+#include "CBoss.h"
 class CMainGame
 {
 public:				// 생성자, 소멸자
@@ -29,7 +30,6 @@ private:
 	CObj*	m_pPlayer;
 
 	//list<PATTERN*> m_PatternList;
-	CPattern* m_Pattern;
 
 	list<CObj*>	m_ObjList[OBJ_END];
 
