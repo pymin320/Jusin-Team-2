@@ -10,7 +10,7 @@ public:
 	void Initialize();
 	void Attack(POINT& _Posin);
 public:
-	void	Set_BulletList(list<CObj*>* pBullet);
+	void Set_BulletList(list<CObj*>* pBullet);
 	void Update(POINT& _Posin, int i = 1);
 
 	

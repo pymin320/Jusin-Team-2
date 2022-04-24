@@ -8,6 +8,7 @@ CMonster::CMonster() {}
 CMonster::CMonster(MOBTYPE eType)
 {
 	m_eType = eType;
+	m_Side = "Àû±º";
 }
 
 
@@ -19,9 +20,6 @@ CMonster::~CMonster()
 }
 void CMonster::Initialize(void)
 {	
-
-	
-	
 	if (m_eType == MOB_FW)
 	{
 		m_tInfo.fCX = 25.f;
@@ -55,7 +53,6 @@ int CMonster::Update(void)
 	if (m_bDead)
 		return OBJ_DEAD;
 
-
 	if (m_eType == MOB_FW)
 	{
 		m_tInfo.fX += m_fSpeed;
@@ -68,10 +65,9 @@ int CMonster::Update(void)
 	{
 	
 	}
-
-
+	m_Posin.x = m_tInfo.fX;
+	m_Posin.y = m_tInfo.fY + 20.f;
 	Update_Rect();
-
 	return OBJ_NOEVENT;
 }
 
@@ -102,6 +98,11 @@ void CMonster::Release(void)
 	delete m_pPattern;
 	m_pPattern = nullptr;
 	//end
+}
+
+void CMonster::SetBulletList(list<CObj*>* _pBullet)
+{
+	m_pPattern->Set_BulletList(_pBullet);
 }
 
 //void CMonster::SetBulletList(list<CObj*>* _pPattern)

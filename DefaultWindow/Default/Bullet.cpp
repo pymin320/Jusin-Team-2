@@ -40,7 +40,7 @@ int CBullet::Update(void)
 		m_tInfo.fY -= m_fSpeed * sinf((m_fAngle * PI) / 180.f);
 	}*/
 
-	m_tInfo.fY += m_fSpeed;
+  	m_tInfo.fY += m_fSpeed;
 
 	/*m_tPosin.x = long(m_tInfo.fX + (m_fDiagonal * cosf((m_fAngle2 * PI) / 180.f)));
 	m_tPosin.y = long(m_tInfo.fY - (m_fDiagonal * sinf((m_fAngle2 * PI) / 180.f)));*/
@@ -66,6 +66,10 @@ void CBullet::Render(HDC hDC)
 void CBullet::Release(void)
 {
 
+}
+void CBullet::SetDirection(const POINT& _direction)
+{
+	m_Direction = _direction;
 }
 //void CBullet::Update_Rect_Missile(void)
 //{

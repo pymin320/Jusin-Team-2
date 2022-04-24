@@ -30,14 +30,13 @@ public:
 	}
 
 
-	static CObj*	Create(float _fX, float _fY, float _fAngle,string _Side)
+	static CObj*	Create(float _fX, float _fY, float _fAngle)
 	{
 		CObj*	pObj = new T;
 
 		pObj->Initialize();
 		pObj->Set_Pos(_fX, _fY);
 		pObj->Set_Angle(_fAngle);
-		pObj->Side(_Side);
 
 		return pObj;
 	}

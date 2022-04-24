@@ -61,6 +61,7 @@ void CBoss::Late_Update(void)
 
 void CBoss::Render(HDC hDC)
 {
+
 	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 	Rectangle(hDC, m_pRect.left, m_pRect.top, m_pRect.right, m_pRect.bottom);
 	Rectangle(hDC, m_pRect2.left, m_pRect2.top, m_pRect2.right, m_pRect2.bottom);

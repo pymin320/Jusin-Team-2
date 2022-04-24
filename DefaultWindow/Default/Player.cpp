@@ -52,6 +52,7 @@ void CPlayer::Initialize(void)
 			//m_pShieldList->push_back(CAbstractFactory<CShield>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle_Shield));
 		}
 	}
+	m_Side = "아군";
 }
 
 int CPlayer::Update(void)
@@ -144,11 +145,13 @@ void CPlayer::Key_Input(void)
 	{
 		if (m_bBoost)
 		{
-			//m_pBullet->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
+			m_pBullet->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
+			m_pBullet->back()->Side("적군");
 		}
 		else
 		{
-			//m_pBullet->push_back(CAbstractFactory<CBulletDefault>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
+			m_pBullet->push_back(CAbstractFactory<CBulletDefault>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
+			m_pBullet->back()->Side("적군");
 		}
 
 
@@ -157,7 +160,7 @@ void CPlayer::Key_Input(void)
 			POINT temp = { dynamic_cast<CShield*>(_shield)->Get_PosinPoint().x,
 			dynamic_cast<CShield*>(_shield)->Get_PosinPoint().y };
 			//m_pPattern->Attack(temp);
-			//m_pBullet->push_back(CAbstractFactory<CBulletDefault>::Create((float)temp.x, (float)temp.y, m_fAngle));
+			//m_pBullet->push_back(CAbstractFactory<CBulletDefault>::Create((float)temp.x, (float)temp.y, m_fAngle, "아군"));
 		}
 
 	}

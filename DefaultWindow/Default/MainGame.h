@@ -29,12 +29,11 @@ private:
 
 	HDC		m_hDC;
 	CUI*	m_pUI;
-	CObj*	m_pPlayer;
+	//CObj*	m_pPlayer;
 
 	//list<PATTERN*> m_PatternList;
 
 	list<CObj*>	m_ObjList[OBJ_END];
-	CPattern* m_pattern;
 
 	TCHAR		m_szFPS[64];	// 멀티 바이트 기반에서는 CHAR로 유니 코드 기반에서는 유니코드로 처리해주는 매크로
 	int			m_iFPS;
