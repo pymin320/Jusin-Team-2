@@ -24,6 +24,8 @@ public:
 
 	const INFO&		Get_Info(void) const { return m_tInfo; }
 	const RECT&		Get_Rect(void) const { return m_tRect; }
+	void Side(string _Side) { m_Side = _Side; }
+
 
 public:
 	virtual		void	Initialize(void)	PURE;
@@ -44,6 +46,7 @@ protected:
 	string		m_Side;
 
 	float		m_fSpeed;
+	float		m_ySpeed;
 	float		m_fAngle;
 
 

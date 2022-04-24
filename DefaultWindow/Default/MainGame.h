@@ -7,7 +7,9 @@
 #include "AbstractFactory.h"
 
 #include "CPattern.h"
+
 #include "UI.h"
+#include "CBoss.h"
 
 class CMainGame
 {
@@ -30,7 +32,6 @@ private:
 	CObj*	m_pPlayer;
 
 	//list<PATTERN*> m_PatternList;
-	CPattern* m_Pattern;
 
 	list<CObj*>	m_ObjList[OBJ_END];
 

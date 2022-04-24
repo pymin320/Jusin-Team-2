@@ -159,6 +159,7 @@ void CPlayer::Key_Input(void)
 			//m_pPattern->Attack(temp);
 			m_pBullet->push_back(CAbstractFactory<CBulletDefault>::Create((float)temp.x, (float)temp.y, m_fAngle));
 		}
+
 	}
 
 	// 포신 회전

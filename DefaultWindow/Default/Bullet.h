@@ -19,10 +19,10 @@ public:
 
 
 private :
-	POINT m_tPosin;
-	float m_fAngle2;
+	//POINT m_tPosin;
+	//float m_fAngle2;
 	float m_fDiagonal;
-	RECT m_Misille;
+	//RECT m_Misille;
 
 };
 
