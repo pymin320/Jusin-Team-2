@@ -58,6 +58,9 @@
     <Filter Include="01. Obj\pym_Boss">
       <UniqueIdentifier>{e5c387c3-c156-4271-be3c-48197b74219f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pattern">
+      <UniqueIdentifier>{d2647cca-9a25-4b88-a5a8-baac248f3504}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -133,6 +136,12 @@
     <ClInclude Include="CBossFront.h">
       <Filter>01. Obj\pym_Boss</Filter>
     </ClInclude>
+    <ClInclude Include="CPattern.h">
+      <Filter>Pattern</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletBomb.h">
+      <Filter>01. Obj\01. Bullet</Filter>
+    </ClInclude>
     <ClInclude Include="Item.h">
       <Filter>0. jini</Filter>
     </ClInclude>
@@ -183,6 +192,12 @@
     </ClCompile>
     <ClCompile Include="CBossFront.cpp">
       <Filter>01. Obj\pym_Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="CPattern.cpp">
+      <Filter>Pattern</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletBomb.cpp">
+      <Filter>01. Obj\01. Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>0. jini</Filter>

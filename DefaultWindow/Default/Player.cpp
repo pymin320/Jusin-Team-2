@@ -13,6 +13,19 @@ CPlayer::~CPlayer()
 	Release();
 }
 
+void CPlayer::TempFunc()
+{
+	for (auto& iter : *m_EnemyList)
+	{
+		if (iter->Get_Info().fX >= 0 && iter->Get_Info().fX <= WINCX
+			||iter->Get_Info().fY >= 0 && iter->Get_Info().fY <= WINCY)
+		{
+			//iter =
+		}
+	}
+	//m_EnemyList->back()->Get_Info().fX
+}
+
 void CPlayer::Initialize(void)
 {
 	m_iHeart = 5;

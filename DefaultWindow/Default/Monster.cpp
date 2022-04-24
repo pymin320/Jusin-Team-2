@@ -8,7 +8,6 @@ CMonster::CMonster() {}
 CMonster::CMonster(MOBTYPE eType)
 {
 	m_eType = eType;
-	m_Side = "적군";
 }
 
 
@@ -42,8 +41,11 @@ void CMonster::Initialize(void)
 		
 		m_fSpeed = 2.f;
 	}
+
+	m_Side = "적군";
   	m_pPattern = new CPattern;
 
+	m_TempAngle = m_fAngle - 30.f;
 }
 
   
@@ -84,9 +86,10 @@ void CMonster::Late_Update(void)
 		if (WINCY - 400 <= m_tRect.bottom)
 			m_fSpeed = 0;
 	}
-  	m_pPattern->Update(m_Posin, 1);
-}
 
+	m_pPattern->Set_Angle(m_fAngle);
+  	m_pPattern->Update(m_Posin, 3);//랜덤값으로 1~N의 번호를 넣어주면 됨
+}
 void CMonster::Render(HDC hDC)
 {
 	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);

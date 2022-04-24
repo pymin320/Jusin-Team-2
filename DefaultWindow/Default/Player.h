@@ -13,8 +13,9 @@ public:
 
 public:
 	int		Get_Heart() { return m_iHeart; }
+	void Set_EnemyList(list<CObj*>* pEnemy) { m_EnemyList = pEnemy; }
+	void TempFunc();//필살기
 	int		Get_BoostCount() { return m_iBoostCount; }
-
 	void	Set_BulletList(list<CObj*>* pBullet) { m_pBullet = pBullet; }
 	void	Set_ItemShield() { m_bShield = true; }
 	void	Set_ItemSpeed() { m_fSpeed *= 1.3f; }
@@ -35,7 +36,8 @@ private:
 	HDC				m_hDC;
 	list<CObj*>*	m_pBullet;					//메인에서 가져온거
 	list <CObj*>	m_ShieldList;
-	list<CObj*>*	m_pShieldList = &m_ShieldList;
+	list<CObj*>* m_pShieldList = &m_ShieldList;
+	list<CObj*>* m_EnemyList;
 
 	// 모양 관련
 	POINT			PolygonPoint[6];
