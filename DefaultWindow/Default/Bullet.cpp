@@ -14,14 +14,14 @@ CBullet::~CBullet()
 
 void CBullet::Initialize(void)
 {
-	m_tInfo.fCX = 10.f;
-	m_tInfo.fCY = 10.f;
+	m_tInfo.fCX = 7.f;
+	m_tInfo.fCY = 14.f;
 
 	m_fSpeed = 3.f;
 	//m_fAngle2 = 0.f;
 	m_fDiagonal = 10.f;
 
-	m_fAngle = 0;
+	//m_fAngle = 0;
 }
 
 int CBullet::Update(void)
@@ -53,8 +53,8 @@ int CBullet::Update(void)
 
 void CBullet::Late_Update(void)
 {
-	if (100 >= m_tRect.left || WINCX - 100 <= m_tRect.right ||
-		100 >= m_tRect.top || WINCY - 100 <= m_tRect.bottom)
+	if (0 >= m_tRect.left || WINCX - 0 <= m_tRect.right ||
+		0 >= m_tRect.top || WINCY - 0 <= m_tRect.bottom)
 		m_bDead = true;
 }
 
