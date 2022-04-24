@@ -25,11 +25,18 @@ void CMainGame::Initialize(void)
 	m_hDC = GetDC(g_hWnd);
 	m_ObjList[OBJ_PLAYER].push_back(CAbstractFactory<CPlayer>::Create());
 	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
+	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_HDC(m_hDC);
+
+	
 
 	//공격 몬스터 생성
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(200, /*float((rand() % 30 + 10) * 10)*/250.f, MOB_FW));
-	((CMonster*)m_ObjList[OBJ_MONSTER].front())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-	m_ObjList[OBJ_MONSTER].front()->Side("적군");
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(200, /*float((rand() % 30 + 10) * 10)*/150.f, MOB_FW));
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+	m_ObjList[OBJ_MONSTER].back()->Set_Angle(-90); // 수정필요 
+
+	//m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(300, /*float((rand() % 30 + 10) * 10)*/250.f, MOB_FW));
+	//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+
 	//m_ObjList[OBJ_FWMONSTER].push_back(CAbstractFactory<CMonster>::Create(300, /*float((rand() % 30 + 10) * 10)*/250.f, MOB_FW));
 	//m_ObjList[OBJ_FWMONSTER].push_back(CAbstractFactory<CMonster>::Create(400, /*float((rand() % 30 + 10) * 10)*/250.f, MOB_FW));
 
@@ -55,9 +62,15 @@ void CMainGame::Initialize(void)
 	m_ObjList[OBJ_MONSTER].push_back(dynamic_cast<CBoss*>(m_ObjList[OBJ_MONSTER].back())->Get_BossList());
 
 	// UI 그리기 용도
-	
-	m_pUI = new CUI();
-	m_pUI->Set_pPlayer(m_ObjList[OBJ_PLAYER].front());
+	//m_pUI = new CUI();
+	//CUI::Set_UI_pPlayer(m_ObjList[OBJ_PLAYER].front());
+
+	// Item test
+	m_pItem = new CItem();
+	dynamic_cast<CItem*>(m_pItem)->Set_pPlayer(m_ObjList[OBJ_PLAYER].front());
+	//m_pItem->Set_Pos(100.f, 100.f);
+
+
 }
 
 void CMainGame::Update(void)
@@ -74,11 +87,20 @@ void CMainGame::Update(void)
 			{
 				Safe_Delete<CObj*>(*iter);
 				iter = m_ObjList[i].erase(iter);
+
+				if (m_ObjList[OBJ_PLAYER].size() == 0)
+				{
+					// 게임오버 처리 추가
+					PostQuitMessage(0);
+				}
+			
 			}
 			else
 				++iter;
 		}
 	}
+
+	m_pItem->Update();
 }
 
 void CMainGame::Late_Update(void)
@@ -89,9 +111,10 @@ void CMainGame::Late_Update(void)
 			iter->Late_Update();
 	}
 	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
-	//CCollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BULLET]);
+	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BULLET]);
 	//CCollisionMgr::Collision_Rect(m_ObjList[OBJ_BOSS], m_ObjList[OBJ_BULLET]);
-
+	
+	m_pItem->Late_Update();
 }
 
 void CMainGame::Render(void)
@@ -104,8 +127,9 @@ void CMainGame::Render(void)
 			iter->Render(m_hDC);
 	}
 
-	m_pUI->Render(m_hDC);
-	m_pUI->Render_Score(m_hDC);
+	CUI::Render_UI(m_hDC, m_ObjList[OBJ_PLAYER].front());
+	CUI::Render_UI_Score(m_hDC);
+	
 	
 	++m_iFPS;
 
@@ -118,6 +142,7 @@ void CMainGame::Render(void)
 		m_dwTime = GetTickCount();
 	}
 
+	m_pItem->Render(m_hDC);
 }
 
 void CMainGame::Release(void)
@@ -130,5 +155,6 @@ void CMainGame::Release(void)
 		m_ObjList[i].clear();
 	}
 	ReleaseDC(g_hWnd, m_hDC);	
-	Safe_Delete<CUI*>(m_pUI);
+	//Safe_Delete<CUI*>(m_pUI);
+	Safe_Delete<CObj*>(m_pItem);
 }

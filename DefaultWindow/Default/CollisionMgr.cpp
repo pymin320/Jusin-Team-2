@@ -26,6 +26,7 @@ void CCollisionMgr::Collision_Rect(list<CObj*> _Dest, list<CObj*> _Sour)
 				{
 					Dest->Set_Dead();
 					Sour->Set_Dead();
+					++g_iScore;
 				}
 			}
 		}
@@ -56,6 +57,7 @@ void CCollisionMgr::Collision_Sphere(list<CObj*> _Dest, list<CObj*> _Sour)
 			{
 				Dest->Set_Dead();
 				Sour->Set_Dead();
+				++g_iScore;
 			}
 		}
 	}

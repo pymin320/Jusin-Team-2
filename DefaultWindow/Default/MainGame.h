@@ -7,10 +7,11 @@
 #include "AbstractFactory.h"
 
 #include "CPattern.h"
-
 #include "UI.h"
 #include "CBoss.h"
 #include "CBossFront.h"
+#include "Item.h"
+
 
 class CMainGame
 {
@@ -29,8 +30,9 @@ public:
 private:
 
 	HDC		m_hDC;
-	CUI*	m_pUI;
+	////CUI*	m_pUI;
 	//CObj*	m_pPlayer;
+	CObj*	 m_pItem;	// 서진 테스트
 
 	//list<PATTERN*> m_PatternList;
 

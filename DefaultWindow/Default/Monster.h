@@ -24,5 +24,6 @@ private:
 	MOBTYPE		m_eType;
 	CPattern* m_pPattern;	
 	POINT m_Posin;
+	float m_TempAngle;
 };
 
