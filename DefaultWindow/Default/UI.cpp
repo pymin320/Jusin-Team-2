@@ -5,8 +5,8 @@
 
 CUI::CUI()
 {
-	ZeroMemory(m_szMessage, sizeof(TCHAR) * 64);
-	ZeroMemory(m_szHeart, sizeof(TCHAR) * 64);
+	//ZeroMemory(m_szMessage, sizeof(TCHAR) * 64);
+	//ZeroMemory(m_szHeart, sizeof(TCHAR) * 64);
 
 	Initialize();
 }
@@ -30,48 +30,84 @@ void CUI::Late_Update(void)
 {
 }
 
-void CUI::Render(HDC hDC)
+void CUI::Render_UI(HDC hDC, CObj* _pPlayer)
 {
-	Render_Heart(hDC);
+	Render_UI_Heart(hDC, _pPlayer);
 }
 
 void CUI::Release(void)
 {
+
 }
 
-void CUI::Render_Heart(HDC hDC)
+void CUI::Render_UI_Heart(HDC hDC, CObj* _pPlayer)
 {
-	m_iHeart = dynamic_cast<CPlayer*>(m_pPlayer)->Get_Heart();
-	switch (m_iHeart)
+	static TCHAR	m_szHeart[64];
+	//lstrcpy(m_szHeart, L"LIFE : ");
+	//m_iHeart = dynamic_cast<CPlayer*>(m_pPlayer)->Get_Heart();
+	switch (dynamic_cast<CPlayer*>(_pPlayer)->Get_Heart())
 	{
+	case 0:
+		lstrcpy(m_szHeart, L" LIFE : 사망 ");
+		break;
 	case 1:
-		lstrcpy(m_szHeart, L"♥ ");
+		lstrcpy(m_szHeart, L" LIFE : ♥ ");
 		break;
 	case 2:
-		lstrcpy(m_szHeart, L"♥ ♥ ");
+		lstrcpy(m_szHeart, L" LIFE : ♥ ♥ ");
 		break;
 	case 3:
-		lstrcpy(m_szHeart, L"♥ ♥ ♥ ");
+		lstrcpy(m_szHeart, L" LIFE : ♥ ♥ ♥ ");
 		break;
 	case 4:
-		lstrcpy(m_szHeart, L"♥ ♥ ♥ ♥ ");
+		lstrcpy(m_szHeart, L" LIFE : ♥ ♥ ♥ ♥ ");
 		break;
 	case 5:
-		lstrcpy(m_szHeart, L"♥ ♥ ♥ ♥ ♥");
+		lstrcpy(m_szHeart, L" LIFE : ♥ ♥ ♥ ♥ ♥");
 		break;
 	}
 	TextOut(hDC, 20, 20, m_szHeart, lstrlen(m_szHeart));
+
+
+	static TCHAR	m_szBoost[64];
+	//lstrcpy(m_szHeart, L"BOOST : ");
+	switch (dynamic_cast<CPlayer*>(_pPlayer)->Get_BoostCount())
+	{
+	case 0:
+		lstrcpy(m_szBoost, L" BOOST(ctrl) : 부스트가 없습니다.");
+		break;
+	case 1:
+		lstrcpy(m_szBoost, L" BOOST(ctrl) : ◆ ");
+		break;
+	case 2:
+		lstrcpy(m_szBoost, L" BOOST(ctrl) : ◆ ◆ ");
+		break;
+	case 3:
+		lstrcpy(m_szBoost, L" BOOST(ctrl) : ◆ ◆ ◆ ");
+		break;
+	case 4:
+		lstrcpy(m_szBoost, L" BOOST(ctrl) : ◆ ◆ ◆ ◆ ");
+		break;
+	case 5:
+		lstrcpy(m_szBoost, L" BOOST(ctrl) : ◆ ◆ ◆ ◆ ◆");
+		break;
+	}
+	TextOut(hDC, 20, 40, m_szBoost, lstrlen(m_szBoost));
 }
 
-void CUI::Render_Score(HDC hDC)
+
+
+void CUI::Render_UI_Score(HDC hDC)
 {
+	TCHAR	m_szTemp[64];
 	RECT rc{ 600, 20, 770, 70 };
 	swprintf_s(m_szTemp, L"Score : %d", g_iScore);
 	DrawText(hDC, m_szTemp, lstrlen(m_szTemp), &rc, DT_RIGHT);
 }
 
-void CUI::Render_PosText(HDC hDC, float _x, float _y, TCHAR _text[64])
+void CUI::Render_UI_PosText(HDC hDC, float _x, float _y, TCHAR _text[64])
 {
+	TCHAR	m_szTemp[64];
 	lstrcpy(m_szTemp, _text);
 	TextOut(hDC, _x, _y, m_szTemp, lstrlen(m_szTemp));
 }

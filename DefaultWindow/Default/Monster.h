@@ -27,10 +27,14 @@ private:
 	MOBTYPE		m_eType;
 	CPattern* m_pPattern;	
 	POINT m_Posin;
+
 	float m_fDiagonal;
-	//Player 정보를 받아온다 
+	 
 	CObj* m_pPlayer;
 	POINT m_tPlayer;
 	
+
+	float m_TempAngle;
+
 };
 

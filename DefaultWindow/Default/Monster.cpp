@@ -9,8 +9,10 @@ CMonster::CMonster() {}
 CMonster::CMonster(MOBTYPE eType)
 {
 	m_eType = eType;
-	m_Side = "Àû±º";
+
+	m_Side = "ì êµ°";
 	
+
 }
 
 
@@ -44,10 +46,15 @@ void CMonster::Initialize(void)
 		m_fSpeed = 2.f;
 	}
 
+
 	m_pPlayer = new CPlayer;
   	m_pPattern = new CPattern;
 	m_fDiagonal = 30.f;
 	
+
+
+	m_TempAngle = m_fAngle - 30.f;
+
 }
 
   
@@ -65,7 +72,7 @@ int CMonster::Update(void)
 	{
 		m_tInfo.fY += m_fSpeed;
 	}
-	//Ãß°İ¸ó½ºÅÍ ¿ª»ï°¢ÇÔ¼ö·Î °¢µµ ±¸ÇÏ±â
+	//ì¶”ê²©ëª¬ìŠ¤í„° ì—­ì‚¼ê°í•¨ìˆ˜ë¡œ ê°ë„ êµ¬í•˜ê¸°
 	/*if (m_eType == MOB_CH)
 	{
 		//m_fAngle = acos()
@@ -76,16 +83,16 @@ int CMonster::Update(void)
 		m_tPlayer.x = m_pPlayer->Get_Info().fX;
 		m_tPlayer.y = m_pPlayer->Get_Info().fY;
 
-		//xÁÂÇ¥ »çÀÌÀÇ °Å¸®
+		//xì¢Œí‘œ ì‚¬ì´ì˜ ê±°ë¦¬
 		fWidth = fabs(m_tPlayer.x- m_tInfo.fX);
 
-		//yÁÂÇ¥ »çÀÌÀÇ °Å¸®
+		//yì¢Œí‘œ ì‚¬ì´ì˜ ê±°ë¦¬
 		fHeight = fabs(m_tPlayer.y - m_tInfo.fY);
 
-		//´ë°¢¼± °Å¸®
+		//ëŒ€ê°ì„  ê±°ë¦¬
 		fDistance = sqrtf(fWidth * fWidth + fHeight * fHeight);
 
-		//¸ó½ºÅÍÁÂÇ¥¿Í ÇÃ·¹ÀÌ¾îÁÂÇ¥ÀÇ ³¢ÀÎ°¢
+		//ëª¬ìŠ¤í„°ì¢Œí‘œì™€ í”Œë ˆì´ì–´ì¢Œí‘œì˜ ë¼ì¸ê°
 		m_fAngle = acos(fWidth / fDistance);
 		m_Posin.x = m_tInfo.fX;// long(m_tInfo.fX + cosf((m_fAngle * PI) / 180.f));
 		m_Posin.y = m_tPlayer.y;//long(m_tInfo.fY - sinf((m_fAngle * PI) / 180.f));
@@ -126,10 +133,15 @@ void CMonster::Late_Update(void)
 		if (WINCY - 400 <= m_tRect.bottom)
 			m_fSpeed = 0;
 	}
+
 	
   	m_pPattern->Update(m_Posin, 1);
 }
 
+
+	m_pPattern->Set_Angle(m_fAngle);
+  	m_pPattern->Update(m_Posin, 3);//ëœë¤ê°’ìœ¼ë¡œ 1~Nì˜ ë²ˆí˜¸ë¥¼ ë„£ì–´ì£¼ë©´ ë¨
+}
 void CMonster::Render(HDC hDC)
 {	
 	if (m_eType == MOB_CH)
