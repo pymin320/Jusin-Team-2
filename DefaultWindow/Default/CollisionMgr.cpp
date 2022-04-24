@@ -22,7 +22,6 @@ void CCollisionMgr::Collision_Rect(list<CObj*> _Dest, list<CObj*> _Sour)
 		{
 			if (IntersectRect(&rc, &(Dest->Get_Rect()), &(Sour->Get_Rect())))		// 충돌 체크 함수		rc에 충돌된 범위가 들어가고 bool을 반환
 			{
-				//if(&(Dest->Get_Side()) != &(Dest->Get_Side()))
 				if ((Dest->Get_Side()) != (Sour->Get_Side()))
 				{
 					Dest->Set_Dead();

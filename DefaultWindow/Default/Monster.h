@@ -7,7 +7,7 @@ class CMonster :public CObj
 {
 public:
 	CMonster(/*MOBTYPE eMob*/ );
-	virtual~CMonster();
+	virtual ~CMonster();
 
 public:
 	virtual void Initialize(void) override;
