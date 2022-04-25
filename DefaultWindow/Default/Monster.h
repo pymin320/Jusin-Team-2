@@ -35,5 +35,6 @@ private:
 	POINT m_Posin2;		//추격몬스터포신
 	float m_fDiagonal;
 	float m_TempAngle;
+	int m_iPatternNum;
 };
 

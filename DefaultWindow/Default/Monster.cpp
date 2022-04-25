@@ -2,12 +2,8 @@
 #include "Monster.h"
 #include "Player.h"
 #include <random>
-
-
-//서진 추가
 #include "AbstractFactory.h"
 #include "Item.h"
-
 
 CMonster::CMonster() {}
 CMonster::CMonster(MOBTYPE eType)
@@ -47,15 +43,13 @@ void CMonster::Initialize(void)
 		m_fSpeed = 2.f;
 	}
 
-
 	m_pPattern = new CPattern;
 	m_fDiagonal = 30.f;
-
-
 
 	m_TempAngle = m_fAngle - 30.f;
 	m_Side = "Enemy";
 }
+
 int CMonster::Update(void)
 {
 	if (m_bDead)
@@ -96,7 +90,6 @@ int CMonster::Update(void)
 		m_tInfo.fX += m_fSpeed * cosf((m_fAngle)*PI / 180.f);
 		m_tInfo.fY -= m_fSpeed * sinf((m_fAngle)*PI / 180.f);
 	}
-
 	m_Posin.x = m_tInfo.fX;
 	m_Posin.y = m_tInfo.fY + 20.f;
 	Update_Rect();
@@ -119,17 +112,17 @@ void CMonster::Late_Update(void)
 		/*	m_Posin.x = m_Posin2.x;
 			m_Posin.y = m_Posin2.y;*/
 	}
-
+	m_iPatternNum = rand() % 3 + 1;
 	m_pPattern->Set_Angle(m_fAngle);
-	m_pPattern->Update(m_Posin, 3);//랜덤값으로 1~N의 번호를 넣어주면 됨
+	m_pPattern->Update(m_Posin, m_iPatternNum);//랜덤값으로 1~N의 번호를 넣어주면 됨
 }
+
 void CMonster::Render(HDC hDC)
 {
 	if (m_eType == MOB_CH)
 	{
 		MoveToEx(hDC, m_tInfo.fX, m_tInfo.fY, nullptr);
 		LineTo(hDC, m_Posin.x, m_Posin.y);
-
 	}
 	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 }

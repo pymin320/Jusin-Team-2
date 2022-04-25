@@ -12,7 +12,7 @@ CPattern::~CPattern()
 
 void CPattern::Initialize()
 {
-	m_DelayTime = rand() % (5000 + 1 - 1000) + 1000;
+	m_DelayTime = rand() % (8000 + 1 - 1000) + 4000;
 }
 
 void CPattern::Attack(POINT& _Posin, float _fAngle)
