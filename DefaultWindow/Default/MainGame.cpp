@@ -30,75 +30,51 @@ void CMainGame::Initialize(void)
 
 
 	
-	////공격 몬스터 생성
-	//m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(200,250.f, MOB_FW));
-	//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-	//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]); // 얘네 다 서진 추가
 
-	//
- //   m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(300, 250.f, MOB_FW));
-	//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-	//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
+	//좌우이동몬스터
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(200,250.f, MOB_FW));
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
+  
+    m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(300, 250.f, MOB_FW));
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
+  
 
-	//m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(400, 250.f, MOB_FW));
-	//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-	//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
-
-	//dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_HDC(m_hDC);
+	
+	//하강몬스터 x,y 좌표 랜더값으로 
+	for (int i = 0; i < 15; ++i)
+		{
+			m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(/*rand() % 600 + 100*/i*50+25, rand() % 900 - 1100, MOB_DF));
+			((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);		
+	  ((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);	
+  }
 	
 
-
-	////수비 몬스터 생성
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(125.f, 75.f, MOB_DF));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->Set_Angle(-90.f);
-
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(225.f, 75.f, MOB_DF));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->Set_Angle(-90.f);
-
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(325.f, 75.f, MOB_DF));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->Set_Angle(-90.f);
-
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(475.f, 75.f, MOB_DF));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->Set_Angle(-90.f);
-
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(575.f, 75.f, MOB_DF));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->Set_Angle(-90.f);
-
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(675.f, 75.f, MOB_DF));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->Set_Angle(-90.f);
-
-	////추격 몬스터(ChaseMonster)
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(100.f, 100.f, MOB_CH));
+	//추격 몬스터(ChaseMonster)
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(25.f, 25.f, MOB_CH));
 	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
 
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(700.f, 100.f, MOB_CH));
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(775.f, 25.f, MOB_CH));
 	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
 
-	//m_ObjList[OBJ_BOSS].push_back(CAbstractFactory<CBoss>::Create(400, -200, 0, "적군"));
-	//dynamic_cast<CBoss*>(m_ObjList[OBJ_BOSS].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
+	for (auto& iter : m_ObjList[OBJ_MONSTER])
+		iter->Set_Target(m_ObjList[OBJ_PLAYER].front());//몬스터에 있는 setTarget에서 player의 좌표를 받아옴
+
+
 }
 
 void CMainGame::Update(void)
 {
 	for (int i = 0; i < OBJ_END; ++i)
 	{
+	
 		for (auto& iter = m_ObjList[i].begin();
-			iter != m_ObjList[i].end(); )
+			iter != m_ObjList[i].end();)
 		{
+			
 			int iResult = (*iter)->Update();
 
 			if (OBJ_DEAD == iResult)
@@ -115,6 +91,7 @@ void CMainGame::Update(void)
 			else
 				++iter;
 		}
+	
 	}
 }
 

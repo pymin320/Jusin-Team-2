@@ -105,6 +105,7 @@ void CUI::Render_UI_Score(HDC hDC)
 	DrawText(hDC, m_szTemp, lstrlen(m_szTemp), &rc, DT_RIGHT);
 }
 
+
 void CUI::Render_UI_PosText(HDC hDC, float _x, float _y, TCHAR _text[64])
 {
 	TCHAR	m_szTemp[64];
