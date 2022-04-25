@@ -33,7 +33,7 @@ int CBulletBomb::Update(void)
 		for (int i = 1; i < 37; i++)
 		{
 			m_BulletList->push_back(CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY));
-			m_BulletList->back()->Side("아군");//수정필요
+			m_BulletList->back()->Side("Team");//수정필요
 			m_BulletList->back()->Set_Angle(m_fAngle += (10.f * i));
 		}
 		return OBJ_DEAD;

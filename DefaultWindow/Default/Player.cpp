@@ -38,7 +38,7 @@ void CPlayer::Initialize(void)
 	m_bShield = false;
 	m_fDiagonal_Shield = 80.f;
 	
-	m_Side = "아군";
+	m_Side = "Team";
 
 	m_Time = GetTickCount();		// 쉴드 타이머
 	m_Time2 = GetTickCount();       // 총알 타이머
@@ -175,7 +175,7 @@ void CPlayer::OnTriggerEnter(CObj* _Object)
 	DWORD CurrentTime = GetTickCount();
 	if (CurrentTime - m_CollisionTime < 3000 || m_bCollision)
 	{
-		if (!(_Object->Get_Side() == "적군"))
+		if (!(_Object->Get_Side() == "Enemy"))
 		{
 			m_CollisionTime = GetTickCount();
 			/*if (CurrentTime)
@@ -194,7 +194,7 @@ void CPlayer::OnTriggerEnter(CObj* _Object)
       
     }
     
-		if (_Object->Get_Side() == "아군")
+		if (_Object->Get_Side() == "Team")
 		{
 			//PostQuitMessage(0);~~
 		}
@@ -226,14 +226,14 @@ void CPlayer::Key_Input(void)
 		{
 			if (m_bShield)	// 쉴드 모드
 			{
-				m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle, "아군"));
+				m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle, "Team"));
 				m_pBulletList->back()->Set_Speed(6.f);
 
 				for (auto& _shield : *m_pShieldList)
 				{
 					POINT temp = { dynamic_cast<CShield*>(_shield)->Get_PosinPoint().x,
 									dynamic_cast<CShield*>(_shield)->Get_PosinPoint().y };
-					m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)temp.x, (float)temp.y, m_fAngle, "아군"));
+					m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)temp.x, (float)temp.y, m_fAngle, "Team"));
 					m_pBulletList->back()->Set_Speed(6.f);
 				}
 			}
@@ -241,21 +241,21 @@ void CPlayer::Key_Input(void)
 			{
 				/*m_pBullet->push_back(CAbstractFactory<CBulletBomb>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
 				((CBulletBomb*)m_pBullet->back())->SetBulletList(m_pBullet);
-				m_pBullet->back()->Side("아군");
-				//m_pBullet->back()->Side("아군");//수정필요
+				m_pBullet->back()->Side("Team");
+				//m_pBullet->back()->Side("Team");//수정필요
 				//m_pBullet->back()->Set_Speed(-3.f);*/
 				//총알 3발
-				m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x - 10, (float)m_tPosin.y, m_fAngle, "아군"));
+				m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x - 10, (float)m_tPosin.y, m_fAngle, "Team"));
 				m_pBulletList->back()->Set_Speed(8.f);
-				m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle, "아군"));
+				m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle, "Team"));
 				m_pBulletList->back()->Set_Speed(8.f);
-				m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x + 10, (float)m_tPosin.y, m_fAngle, "아군"));
+				m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x + 10, (float)m_tPosin.y, m_fAngle, "Team"));
 				m_pBulletList->back()->Set_Speed(8.f);
 				
 			}
 			else if (!m_bBoost)	// 기본 모드
 			{
-				m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle, "아군"));
+				m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle, "Team"));
 				m_pBulletList->back()->Set_Speed(6.f);
 			}
 			m_Time2 = GetTickCount();

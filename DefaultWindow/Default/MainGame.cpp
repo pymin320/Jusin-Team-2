@@ -25,23 +25,18 @@ void CMainGame::Initialize(void)
 {
 	m_hDC = GetDC(g_hWnd);
 
-	m_ObjList[OBJ_PLAYER].push_back(CAbstractFactory<CPlayer>::Create("아군"));
+	m_ObjList[OBJ_PLAYER].push_back(CAbstractFactory<CPlayer>::Create("Team"));
 	m_ObjList[OBJ_COLLIDER].push_back(m_ObjList[OBJ_PLAYER].back());
 	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].back())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
-	//dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
-
 	
 	//공격 몬스터 생성
 	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(200,150.f, MOB_FW));
 	m_ObjList[OBJ_COLLIDER].push_back(m_ObjList[OBJ_MONSTER].back());
 	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-	m_ObjList[OBJ_MONSTER].back()->Side("적군");
+	m_ObjList[OBJ_MONSTER].back()->Side("Enemy");
 
 	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
 	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_ItemList(&m_ObjList[OBJ_ITEM]);
-
-
-	
 
 	//좌우이동몬스터
 	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(200,250.f, MOB_FW));
@@ -50,7 +45,7 @@ void CMainGame::Initialize(void)
   
     m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(300, 250.f, MOB_FW));
 	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
   
 
 	
@@ -76,7 +71,7 @@ void CMainGame::Initialize(void)
 	for (auto& iter : m_ObjList[OBJ_MONSTER])
 		iter->Set_Target(m_ObjList[OBJ_PLAYER].front());//몬스터에 있는 setTarget에서 player의 좌표를 받아옴
 
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CBoss>::Create(400, -200, 0, "적군"));
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CBoss>::Create(400, -200, 0, "Enemy"));
 	m_ObjList[OBJ_MONSTER].push_back(dynamic_cast<CBoss*>(m_ObjList[OBJ_MONSTER].back())->Get_BossList());
 	for (auto& iter : m_ObjList[OBJ_MONSTER])
 		iter->Set_Target(m_ObjList[OBJ_PLAYER].front());

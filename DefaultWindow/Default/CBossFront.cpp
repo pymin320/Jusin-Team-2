@@ -20,7 +20,7 @@ void CBossFront::Initialize(void)
 
 	m_ySpeed = 1.0f;
 	m_fSpeed = 0.2f;
-	m_Side = "Àû±º";
+	m_Side = "Enemy";
 	m_fDiagonal = 0;
 }
 

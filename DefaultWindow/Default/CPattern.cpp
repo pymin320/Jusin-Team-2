@@ -17,9 +17,7 @@ void CPattern::Initialize()
 
 void CPattern::Attack(POINT& _Posin, float _fAngle)
 {
-	m_pBullet->push_back(CAbstractFactory<CBullet>::Create((float)_Posin.x, (float)_Posin.y));
-	m_pBullet->back()->Side("적군");
-	m_pBullet->back()->Set_Angle(_fAngle);
+	m_pBullet->push_back(CAbstractFactory<CBullet>::Create((float)_Posin.x, (float)_Posin.y, _fAngle,"Enemy"));
 }
 
 void CPattern::Set_BulletList(list<CObj*>* pBullet)
@@ -76,23 +74,6 @@ void CPattern::Update(POINT& _Posin, int i)
 			}
 		}
 			break;
-		case 4://오른쪽부터 4발쏘고 왼쪽으로 fAngle 만큼 이동하고 쏨. 4번반복
-		{
-			//while()
-			DWORD currentTickCount = GetTickCount();//패턴 진입점
-			if (currentTickCount - m_Time >= 500 || !m_bIsEnd) // 시간이 되었거나 안끄났으면
-			{
-				/*m_fAngle(rand()% )
-				Attack(_Posin, m_fAngle);
-				*///m_Time = GetTickCount();//시간은 계속돌리고
-				//if (m_tempTIme - m_Time>= 500)
-				//{
-				//   //m_bIsEnd = false;
-				//	m_fAngle -= 20.f;
-				//	Attack(_Posin, m_fAngle);
-				//}
-			}
-		}
 		break;
 		default:
 			break;

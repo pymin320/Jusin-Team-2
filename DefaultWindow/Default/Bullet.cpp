@@ -28,7 +28,7 @@ int CBullet::Update(void)
 	m_tInfo.fX += m_fSpeed * cosf((m_fAngle * PI) / 180.f);
 	m_tInfo.fY -= m_fSpeed * sinf((m_fAngle * PI) / 180.f);
 
-	if (m_Side != "Àû±º")
+	if (!(m_Side == "Team"))
 	{	
 		m_tInfo.fCX = 7.f;
 		m_tInfo.fCY = 14.f;
@@ -50,15 +50,15 @@ void CBullet::Render(HDC hDC)
 	HBRUSH myBrush;
 	HBRUSH oldBrush;
 
-	if (m_Side == "Àû±º")
-	{
-		myBrush = (HBRUSH)CreateSolidBrush(RGB(255, 81, 81));
+	if (!(m_Side == "Team"))
+	{ 
+  		myBrush = (HBRUSH)CreateSolidBrush(RGB(255, 81, 81));
 		oldBrush = (HBRUSH)SelectObject(hDC, myBrush);
 		Ellipse(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 		SelectObject(hDC, oldBrush);
 		DeleteObject(myBrush);
 	}
-	else
+	else if (!(m_Side == "Enemy"))
 	{
 		myBrush = (HBRUSH)CreateSolidBrush(RGB(101, 171, 235));
 		oldBrush = (HBRUSH)SelectObject(hDC, myBrush);

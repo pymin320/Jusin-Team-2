@@ -13,7 +13,7 @@ CMonster::CMonster() {}
 CMonster::CMonster(MOBTYPE eType)
 { 
 	m_eType = eType;
-	m_Side = "적군";
+	m_Side = "Enemy";
 }
 CMonster::~CMonster()
 {
@@ -48,14 +48,13 @@ void CMonster::Initialize(void)
 	}
 
 
-	m_pPlayer = new CPlayer;
   	m_pPattern = new CPattern;
 	m_fDiagonal = 30.f;
 	
 
 
 	m_TempAngle = m_fAngle - 30.f;
-	m_Side = "적군";
+	m_Side = "Enemy";
 }
 
   
@@ -79,7 +78,7 @@ int CMonster::Update(void)
 	
 	if (m_eType == MOB_DF)
 	{		
-			m_tInfo.fY += m_fSpeed;
+		m_tInfo.fY += m_fSpeed;
 	}
 	//추격몬스터 역삼각함수로 각도 구하기
 	if (m_eType == MOB_CH)
@@ -118,22 +117,18 @@ void CMonster::Late_Update(void)
 		if (100 >= m_tRect.left || WINCX - 100 <= m_tRect.right)
 			m_fSpeed *= -1.f;
 	}
-	if (m_eType == MOB_DF)
-	{
-	}
-
 
 	if (m_eType == MOB_CH)
 	{	
 	
 
 		//포신 끝 좌표
-		m_Posin2.x = m_tInfo.fX+m_fDiagonal*cosf((m_fAngle)*PI / 180.f);
-		m_Posin2.y = m_tInfo.fY-m_fDiagonal*sinf((m_fAngle)*PI / 180.f);
+		m_Posin.x = m_tInfo.fX + m_fDiagonal * cosf((m_fAngle)*PI / 180.f);
+		m_Posin.y = m_tInfo.fY - m_fDiagonal * sinf((m_fAngle)*PI / 180.f);
+
 	
-	
-		m_Posin.x = m_Posin2.x;
-		m_Posin.y = m_Posin2.y;
+	/*	m_Posin.x = m_Posin2.x;
+		m_Posin.y = m_Posin2.y;*/
 	}
 
 	m_pPattern->Set_Angle(m_fAngle);
@@ -144,7 +139,7 @@ void CMonster::Render(HDC hDC)
 	if (m_eType == MOB_CH)
   {
 		MoveToEx(hDC, m_tInfo.fX, m_tInfo.fY,nullptr);
-		LineTo(hDC, m_Posin2.x, m_Posin2.y);
+		LineTo(hDC, m_Posin.x, m_Posin.y);
 		
 	}
 	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
