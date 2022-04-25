@@ -58,9 +58,6 @@ void CPlayer::Initialize(void)
 	m_Time = GetTickCount();		// 쉴드 타이머
 	m_Time2 = GetTickCount();       // 총알 타이머
 	m_Time3 = GetTickCount();		// 부스트 타이머
-	
-	//m_pPattern = new CPattern;
-	//m_pPattern->Set_BulletList(m_pBulletList);
 }
 
 int CPlayer::Update(void)
@@ -180,6 +177,48 @@ void CPlayer::Release(void)
 	//Safe_Delete<CPattern*>(m_pPattern);
 }
 
+//충돌이 되면 실행되는 함수
+void CPlayer::OnTriggerEnter(CObj* _Object)
+{
+	
+	/*m_CollisionTime = CurrentTime;
+	if (CurrentTime - m_CollisionTime <= 3000)
+	{
+		return;
+	}*/
+	//처음 충돌햇을때부터 재
+	DWORD CurrentTime = GetTickCount();
+	if (CurrentTime - m_CollisionTime < 3000 || m_bCollision)
+	{
+		if (!(_Object->Get_Side() == "적군"))
+		{
+			m_CollisionTime = GetTickCount();
+			/*if (CurrentTime)
+			{
+
+			}
+			CurrentTime = GetTickCount();*/
+
+			//PostQuitMessage(0);~~
+			m_helth--;
+			// 데미지입음
+
+		}
+    if (_Object->Get_Side() == "Item")
+    {
+      
+    }
+    
+		if (_Object->Get_Side() == "아군")
+		{
+			//PostQuitMessage(0);~~
+		}
+
+		//if (_Object->Get_Side() == ("아이템"))// (Monster*)_Object->GetItem  
+
+	}
+}
+
 void CPlayer::Key_Input(void)
 {
 	if (GetAsyncKeyState(VK_CONTROL))
@@ -215,6 +254,11 @@ void CPlayer::Key_Input(void)
 			}
 			else if (m_bBoost)	// 부스트 모드
 			{
+				/*m_pBullet->push_back(CAbstractFactory<CBulletBomb>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
+				((CBulletBomb*)m_pBullet->back())->SetBulletList(m_pBullet);
+				m_pBullet->back()->Side("아군");
+				//m_pBullet->back()->Side("아군");//수정필요
+				//m_pBullet->back()->Set_Speed(-3.f);*/
 				//총알 3발
 				m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x - 10, (float)m_tPosin.y, m_fAngle, "아군"));
 				m_pBulletList->back()->Set_Speed(8.f);

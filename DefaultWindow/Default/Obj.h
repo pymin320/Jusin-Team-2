@@ -31,7 +31,8 @@ public:
 	virtual		void	Late_Update(void)	PURE;
 	virtual		void	Render(HDC hDC)		PURE;
 	virtual		void	Release(void)		PURE;
-
+	
+	virtual		void	OnTriggerEnter(CObj* _Object) {};
 	const string	Get_Side(void) const { return m_Side; }
 
 protected:
@@ -49,6 +50,7 @@ protected:
 
 	DIRECTION	m_eDir;
 	bool		m_bDead;
+
 	CObj* m_pTarget;
 
 	//POINT		m_Posin;

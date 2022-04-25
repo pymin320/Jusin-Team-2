@@ -4,6 +4,7 @@
 #include "Monster.h"
 #include "Mouse.h"
 #include "CollisionMgr.h"
+#include "BulletBomb.h"
 
 int		g_iScore = 0;
 
@@ -25,6 +26,17 @@ void CMainGame::Initialize(void)
 	m_hDC = GetDC(g_hWnd);
 
 	m_ObjList[OBJ_PLAYER].push_back(CAbstractFactory<CPlayer>::Create("아군"));
+	m_ObjList[OBJ_COLLIDER].push_back(m_ObjList[OBJ_PLAYER].back());
+	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].back())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
+	//dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
+
+	
+	//공격 몬스터 생성
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(200,150.f, MOB_FW));
+	m_ObjList[OBJ_COLLIDER].push_back(m_ObjList[OBJ_MONSTER].back());
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+	m_ObjList[OBJ_MONSTER].back()->Side("적군");
+
 	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
 	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_ItemList(&m_ObjList[OBJ_ITEM]);
 
@@ -59,6 +71,7 @@ void CMainGame::Initialize(void)
 	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(775.f, 25.f, MOB_CH));
 	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
+
 
 	for (auto& iter : m_ObjList[OBJ_MONSTER])
 		iter->Set_Target(m_ObjList[OBJ_PLAYER].front());//몬스터에 있는 setTarget에서 player의 좌표를 받아옴
@@ -102,11 +115,10 @@ void CMainGame::Late_Update(void)
 		for (auto& iter : m_ObjList[i])
 			iter->Late_Update();
 	}
-	
-	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
-	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BULLET]);
-	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_MONSTER]);
-	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_ITEM]);
+
+	//콜라이더가 있는 ObjList만 빼오고싶은데....
+	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_COLLIDER], m_ObjList[OBJ_COLLIDER]);
+	//CCollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BULLET]);
 
 	//CCollisionMgr::Collision_Rect(m_ObjList[OBJ_BOSS], m_ObjList[OBJ_BULLET]);
 }

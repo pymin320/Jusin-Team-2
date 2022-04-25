@@ -28,7 +28,7 @@ int CBullet::Update(void)
 	m_tInfo.fX += m_fSpeed * cosf((m_fAngle * PI) / 180.f);
 	m_tInfo.fY -= m_fSpeed * sinf((m_fAngle * PI) / 180.f);
 
-	if (m_Side != "利焙")
+	if (m_Side != "脌没卤潞")
 	{	
 		m_tInfo.fCX = 7.f;
 		m_tInfo.fCY = 14.f;
@@ -50,7 +50,7 @@ void CBullet::Render(HDC hDC)
 	HBRUSH myBrush;
 	HBRUSH oldBrush;
 
-	if (m_Side == "利焙")
+	if (m_Side == "脌没卤潞")
 	{
 		myBrush = (HBRUSH)CreateSolidBrush(RGB(255, 81, 81));
 		oldBrush = (HBRUSH)SelectObject(hDC, myBrush);

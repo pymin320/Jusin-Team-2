@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Monster.h"
 #include "Player.h"
-
 #include <random>
+
 
 //서진 추가
 #include "AbstractFactory.h"
@@ -15,8 +15,6 @@ CMonster::CMonster(MOBTYPE eType)
 	m_eType = eType;
 	m_Side = "적군";
 }
-
-
 CMonster::~CMonster()
 {
 	//hong modify
@@ -57,7 +55,7 @@ void CMonster::Initialize(void)
 
 
 	m_TempAngle = m_fAngle - 30.f;
-
+	m_Side = "적군";
 }
 
   
@@ -115,7 +113,6 @@ int CMonster::Update(void)
 
 void CMonster::Late_Update(void)
 {
-
 	if (m_eType == MOB_FW)
 	{
 		if (100 >= m_tRect.left || WINCX - 100 <= m_tRect.right)
@@ -124,6 +121,7 @@ void CMonster::Late_Update(void)
 	if (m_eType == MOB_DF)
 	{
 	}
+
 
 	if (m_eType == MOB_CH)
 	{	
@@ -138,19 +136,17 @@ void CMonster::Late_Update(void)
 		m_Posin.y = m_Posin2.y;
 	}
 
-
 	m_pPattern->Set_Angle(m_fAngle);
   	m_pPattern->Update(m_Posin, 3);//랜덤값으로 1~N의 번호를 넣어주면 됨
 }
 void CMonster::Render(HDC hDC)
 {	
 	if (m_eType == MOB_CH)
-	{		
+  {
 		MoveToEx(hDC, m_tInfo.fX, m_tInfo.fY,nullptr);
 		LineTo(hDC, m_Posin2.x, m_Posin2.y);
 		
 	}
-
 	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 }
 

@@ -2,6 +2,7 @@
 #include "Obj.h"
 #include "Bullet.h"
 #include "Bullet_Default.h"
+#include "BulletBomb.h"
 #include "CPattern.h"
 #include "UI.h"
 
@@ -22,8 +23,6 @@ public:
 	void	Set_ItemSpeed() { m_fSpeed *= 1.3f; }
 	void	Set_HDC(HDC hDC) { m_hDC = hDC; }
 	void	Set_ItemAbility(CObj* _item);
-	
-
 public:
 	virtual void Initialize(void) override;
 	virtual int	 Update(void) override;
@@ -31,10 +30,10 @@ public:
 	virtual void Render(HDC hDC) override;
 	virtual void Release(void) override;
 
+	virtual void OnTriggerEnter(CObj* _Object) override;
+
 private:
 	void		Key_Input();
-
-
 private:
 	HDC				m_hDC;
 	list<CObj*>*	m_pBulletList;					//메인에서 가져온거
@@ -66,6 +65,10 @@ private:
 	DWORD			m_Time3;
 	
 
+	//hong modify
+	int m_helth = 10;
+	DWORD m_CollisionTime = GetTickCount();
+	bool m_bCollision = true;
+	// end
 //	CPattern*			m_pPattern;
-
 };
