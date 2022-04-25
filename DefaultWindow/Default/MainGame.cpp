@@ -76,6 +76,11 @@ void CMainGame::Initialize(void)
 	for (auto& iter : m_ObjList[OBJ_MONSTER])
 		iter->Set_Target(m_ObjList[OBJ_PLAYER].front());//몬스터에 있는 setTarget에서 player의 좌표를 받아옴
 
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CBoss>::Create(400, -200, 0, "적군"));
+	m_ObjList[OBJ_MONSTER].push_back(dynamic_cast<CBoss*>(m_ObjList[OBJ_MONSTER].back())->Get_BossList());
+	for (auto& iter : m_ObjList[OBJ_MONSTER])
+		iter->Set_Target(m_ObjList[OBJ_PLAYER].front());
+
 
 }
 

@@ -52,7 +52,7 @@ protected:
 	bool		m_bDead;
 
 	CObj* m_pTarget;
-
+	RECT		m_ColliRect{};
 	//POINT		m_Posin;
 };
 
