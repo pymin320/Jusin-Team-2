@@ -350,6 +350,9 @@ void CPlayer::Set_ItemAbility(CObj* _item)
 	case ITEM_COIN:
 		g_iScore += 100;
 		break;
+	case ITEM_BOMB:
+		m_iBombCount++;
+		break;
 	default:
 		break;
 	}

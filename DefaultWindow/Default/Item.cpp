@@ -25,15 +25,18 @@ int CItem::Update(void)
 {
 	if (m_bDead)
 		return OBJ_DEAD;
-	
+
+	m_tInfo.fY += m_fSpeed;
+
+	Update_Rect();
 	return OBJ_NOEVENT;
 }
 
 void CItem::Late_Update(void)
 {
-	m_tInfo.fY += m_fSpeed;
-
-	Update_Rect();
+	if (0 >= m_tRect.left || WINCX - 0 <= m_tRect.right ||
+		0 >= m_tRect.top || WINCY - 0 <= m_tRect.bottom)
+		m_bDead = true;
 }
 
 void CItem::Render(HDC hDC)

@@ -11,6 +11,7 @@ public:
 	void Attack(POINT& _Posin, float _fAngle);
 public:
 	void Set_BulletList(list<CObj*>* pBullet);
+	void SetTime(DWORD _time);
 	void Set_Angle(float &_fAngle) { m_fAngle = _fAngle; }
 	void Update(POINT& _Posin, int i = 1);
 private:

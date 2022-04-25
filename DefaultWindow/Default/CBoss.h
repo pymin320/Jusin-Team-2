@@ -18,13 +18,21 @@ public:
 	virtual		void	Late_Update(void);
 	virtual		void	Render(HDC hDC);
 	virtual		void	Release(void);
-	CObj* Get_BossList() { return m_pBossFront; }
+	CObj* Get_BossList() {
+		return m_pBossFront;
+	}
 
-	void	Set_BossList(list<CObj*>* pBoss) { m_pBossList = pBoss; }
+	//void	Set_BossList(list<CObj*>* pBoss) { m_pBossList = pBoss; }
 
 
-	void SetBulletList(list<CObj*>* _pBullet);
+	void SetBulletList(list<CObj*>* _pBullet)
+	{ 
+		m_pBullet = _pBullet; 
 
+		m_Pattern->Set_BulletList(m_pBullet);
+		m_Pattern2->Set_BulletList(m_pBullet);
+		
+	}
 private:
 	POINT		m_tPosin;		//오른쪽 포신
 	RECT		m_pRect;
@@ -36,11 +44,15 @@ private:
 
 	DWORD		m_BossTime;
 	CObj*		m_pBossFront;
-	list<CObj*>* m_pBossList;
+	//list<CObj*>* m_pBossList;
 
 	typedef list<CObj*>		BULLETLIST;
 	BULLETLIST* m_pBullet;
+	CPattern* m_Pattern;
+	CPattern* m_Pattern2;
 
+	POINT tempPosin;
+	POINT tempPosin2;
 	int m_Hp;
 };
 
