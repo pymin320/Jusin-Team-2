@@ -43,7 +43,9 @@ int CBulletBomb::Update(void)
 
 void CBulletBomb::Late_Update(void)
 {	
-	
+	if (0 >= m_tRect.left || WINCX - 0 <= m_tRect.right ||
+		0 >= m_tRect.top || WINCY - 0 <= m_tRect.bottom)
+		m_bDead = true;
 }
 
 void CBulletBomb::Render(HDC hDC)
