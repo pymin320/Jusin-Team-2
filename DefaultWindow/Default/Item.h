@@ -17,9 +17,11 @@ public :
 
 public :
 	void		Set_pPlayer(CObj* _pPlayer) { m_pPlayer = _pPlayer; }
+	//void		Set_pObjList(list<CObj*>* _ObjList) {  }
+	int			Get_ItemType() { return m_ItemType; }
 
 private :
-	CUI* m_pUI;
 	CObj* m_pPlayer;
+	int m_ItemType;
 };
 
