@@ -93,6 +93,32 @@ void CUI::Render_UI_Heart(HDC hDC, CObj* _pPlayer)
 		break;
 	}
 	TextOut(hDC, 20, 40, m_szBoost, lstrlen(m_szBoost));
+
+
+	static TCHAR	m_szBomb[64];
+	//lstrcpy(m_szHeart, L"BOOST : ");
+	switch (dynamic_cast<CPlayer*>(_pPlayer)->Get_BombCount())
+	{
+	case 0:
+		lstrcpy(m_szBomb, L" Bomb( V ) : ∆¯≈∫¿Ã æ¯Ω¿¥œ¥Ÿ. æ∆¿Ã≈€¿ª »πµÊ«œººø‰");
+		break;
+	case 1:
+		lstrcpy(m_szBomb, L" Bomb( V ) : °ﬂ ");
+		break;
+	case 2:
+		lstrcpy(m_szBomb, L" Bomb( V ) : °ﬂ °ﬂ ");
+		break;
+	case 3:
+		lstrcpy(m_szBomb, L" Bomb( V ) : °ﬂ °ﬂ °ﬂ ");
+		break;
+	case 4:
+		lstrcpy(m_szBomb, L" Bomb( V ) : °ﬂ °ﬂ °ﬂ °ﬂ ");
+		break;
+	case 5:
+		lstrcpy(m_szBomb, L" Bomb( V ) : °ﬂ °ﬂ °ﬂ °ﬂ °ﬂ");
+		break;
+	}
+	TextOut(hDC, 20, 60, m_szBomb, lstrlen(m_szBomb));
 }
 
 

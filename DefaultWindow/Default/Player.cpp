@@ -15,6 +15,7 @@ void CPlayer::Initialize(void)
 {
 	m_iHeart = 5;
 	m_iBoostCount = 0;
+	m_iBombCount = 3;
 	m_iGageScore = 1;
 
 	m_tInfo.fX = 400.f;
@@ -43,6 +44,7 @@ void CPlayer::Initialize(void)
 	m_Time = GetTickCount();		// 쉴드 타이머
 	m_Time2 = GetTickCount();       // 총알 타이머
 	m_Time3 = GetTickCount();		// 부스트 타이머
+	m_Time4 = GetTickCount();		// 폭탄 타이머
 }
 
 int CPlayer::Update(void)
@@ -183,6 +185,21 @@ void CPlayer::OnTriggerEnter(CObj* _Object)
 
 void CPlayer::Key_Input(void)
 {
+	if (GetAsyncKeyState('V'))
+	{
+		if (GetTickCount() - m_Time4 > 500)
+		{
+			if (m_iBombCount > 0)
+			{
+				m_pBulletList->push_back(CAbstractFactory<CBulletBomb>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
+				((CBulletBomb*)m_pBulletList->back())->SetBulletList(m_pBulletList);
+				m_pBulletList->back()->Set_Speed(3.f);
+				--m_iBombCount;
+				m_Time4 = GetTickCount();
+			}
+		}
+	}
+
 	if (GetAsyncKeyState(VK_CONTROL))
 	{
 		if (GetTickCount() - m_Time3 > 200)
@@ -231,19 +248,11 @@ void CPlayer::Key_Input(void)
 			}
 			else if (!m_bBoost)	// 기본 모드
 			{
-				//m_pBulletList->push_back(CAbstractFactory<CBulletBomb>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
-				//((CBulletBomb*)m_pBulletList->back())->SetBulletList(m_pBulletList);
-				//m_pBulletList->back()->Side("Team");//수정필요
-				//m_pBulletList->back()->Set_Speed(3.f);
-
 				m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle, "Team"));
 				m_pBulletList->back()->Set_Speed(6.f);
 				//m_ColList->push_back(m_pBulletList->back());
-
-
 			}
 			m_Time2 = GetTickCount();
-			
 		}
 	}
 

@@ -16,6 +16,7 @@ public:
 	int		Get_Heart() { return m_iHeart; }
 	void	Set_EnemyList(list<CObj*>* pEnemy) { m_EnemyList = pEnemy; }
 	int		Get_BoostCount() { return m_iBoostCount; }
+	int		Get_BombCount() { return m_iBombCount; }
 	void	Set_BulletList(list<CObj*>* _pBulletList) { m_pBulletList = _pBulletList; }
 	void	Set_ItemList(list<CObj*>* _pItemList) { m_pItemList = _pItemList; }
 	void	Set_ItemShield() { m_bShield = true; }
@@ -57,11 +58,14 @@ private:
 	BOOL			m_bShield;		// 쉴드 모드 여부
 	int				m_iHeart;		// 플레이어 목숨
 	int				m_iBoostCount;
+	int				m_iBombCount;
 	/*int				m_iBoostFail;*/
 	int				m_iGageScore;
 	DWORD			m_Time;
 	DWORD			m_Time2;
 	DWORD			m_Time3;
+	DWORD			m_Time4;
+
 	
 
 	//hong modify

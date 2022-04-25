@@ -3,7 +3,7 @@
 
 CItem::CItem()
 {
-	m_ItemType = rand() % 3;
+	m_ItemType = rand() % 4;
 	Initialize();
 }
 
@@ -67,6 +67,14 @@ void CItem::Render(HDC hDC)
 		SelectObject(hDC, oldBrush);
 		DeleteObject(myBrush);
 		CUI::Render_UI_PosText(hDC, m_tInfo.fX - 20, m_tInfo.fY + 20, L"COIN");
+		return;
+	case ITEM_BOMB:
+		myBrush = (HBRUSH)CreateSolidBrush(RGB(255, 255, 255));
+		oldBrush = (HBRUSH)SelectObject(hDC, myBrush);
+		Ellipse(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+		SelectObject(hDC, oldBrush);
+		DeleteObject(myBrush);
+		CUI::Render_UI_PosText(hDC, m_tInfo.fX - 20, m_tInfo.fY + 20, L"BOMB");
 		return;
 	default:
 		return;
