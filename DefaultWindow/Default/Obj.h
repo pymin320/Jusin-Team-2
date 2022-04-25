@@ -18,6 +18,8 @@ public:
 	void		Set_Dead() { m_bDead = true; }
 	void		Set_Angle(float _fAngle) { m_fAngle = _fAngle; }
 	void		Set_Speed(float _fSpeed) { m_fSpeed = _fSpeed; }
+	void		Set_Target(CObj* _pTarget) { m_pTarget = _pTarget; }
+
 
 	const INFO&		Get_Info(void) const { return m_tInfo; }
 	const RECT&		Get_Rect(void) const { return m_tRect; }
@@ -48,7 +50,9 @@ protected:
 
 	DIRECTION	m_eDir;
 	bool		m_bDead;
-	bool		m_bCollision;
+
+	CObj* m_pTarget;
+
 	//POINT		m_Posin;
 };
 

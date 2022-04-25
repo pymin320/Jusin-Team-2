@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "AbstractFactory.h"
 #include "Shield.h"
-
+#include "Item.h"
 
 CPlayer::CPlayer()
 {
@@ -13,23 +13,23 @@ CPlayer::~CPlayer()
 	Release();
 }
 
-void CPlayer::TempFunc()
-{
-	for (auto& iter : *m_EnemyList)
-	{
-		if (iter->Get_Info().fX >= 0 && iter->Get_Info().fX <= WINCX
-			||iter->Get_Info().fY >= 0 && iter->Get_Info().fY <= WINCY)
-		{
-			//iter =
-		}
-	}
-	//m_EnemyList->back()->Get_Info().fX
-}
+//void CPlayer::TempFunc()
+//{
+//	for (auto& iter : *m_EnemyList)
+//	{
+//		if (iter->Get_Info().fX >= 0 && iter->Get_Info().fX <= WINCX
+//			||iter->Get_Info().fY >= 0 && iter->Get_Info().fY <= WINCY)
+//		{
+//			//iter =
+//		}
+//	}
+//	//m_EnemyList->back()->Get_Info().fX
+//}
 
 void CPlayer::Initialize(void)
 {
 	m_iHeart = 5;
-	m_iBoostCount = 2;
+	m_iBoostCount = 0;
 	m_iGageScore = 1;
 
 	m_tInfo.fX = 400.f;
@@ -58,17 +58,6 @@ void CPlayer::Initialize(void)
 	m_Time = GetTickCount();		// 쉴드 타이머
 	m_Time2 = GetTickCount();       // 총알 타이머
 	m_Time3 = GetTickCount();		// 부스트 타이머
-
-	//m_pPattern = new CPattern;
-	//m_pPattern->Set_BulletList(m_pBullet);
-
-	//쉴드부터 생성
-	for (int i = 0; i < 2; ++i)
-	{
-		m_pShieldList->push_back(CAbstractFactory<CShield>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle_Shield));
-	}
-
-	m_bCollision = false;
 }
 
 int CPlayer::Update(void)
@@ -113,6 +102,11 @@ int CPlayer::Update(void)
 		DWORD CurrentTime = GetTickCount();
 		if (CurrentTime - m_Time > 5000)
 		{
+			for (auto& _iter = m_pShieldList->begin(); _iter != m_pShieldList->end();)
+			{
+				Safe_Delete<CObj*>(*_iter);
+				_iter = m_pShieldList->erase(_iter);
+			}
 			m_bShield = false;
 			m_Time = GetTickCount();
 		}
@@ -149,7 +143,7 @@ void CPlayer::Late_Update(void)
 
 			_shield->Set_Pos(m_tPosin_Shield.x, m_tPosin_Shield.y);
 			_shield->Late_Update();
-
+			
 			m_fAngle_Shield += 180.f;
 		}
 	}
@@ -157,7 +151,6 @@ void CPlayer::Late_Update(void)
 
 void CPlayer::Render(HDC hDC)
 {
-	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 	Polygon(hDC, PolygonPoint, 6);
 
 	MoveToEx(hDC, m_tInfo.fX, m_tInfo.fY, NULL);
@@ -173,11 +166,9 @@ void CPlayer::Render(HDC hDC)
 		CUI::Render_UI_PosText(hDC, m_tInfo.fX - 20, m_tInfo.fY + 15, L"Shield!!!");
 	}
 
-
 	if (m_bBoost)
 	{
 		CUI::Render_UI_PosText(hDC, m_tInfo.fX - 20, m_tInfo.fY + 15, L"Boost!!!");
-		CUI::Render_UI_PosText(hDC, m_tInfo.fX - 20, m_tInfo.fY + 30, L"Speed Up!!!");
 	}
 }
 
@@ -213,6 +204,11 @@ void CPlayer::OnTriggerEnter(CObj* _Object)
 			// 데미지입음
 
 		}
+    if (_Object->Get_Side() == "Item")
+    {
+      
+    }
+    
 		if (_Object->Get_Side() == "아군")
 		{
 			//PostQuitMessage(0);~~
@@ -227,65 +223,58 @@ void CPlayer::Key_Input(void)
 {
 	if (GetAsyncKeyState(VK_CONTROL))
 	{
-		if (GetTickCount() - m_Time2 > 150)
+		if (GetTickCount() - m_Time3 > 200)
 		{
 			if (m_iBoostCount > 0)
 			{
 				m_bBoost = true;
 				--m_iBoostCount;
 			}
-			m_Time2 = GetTickCount();
+			m_Time3 = GetTickCount();
 		}
 	}
 
 	// 총알 발사
 	if (GetAsyncKeyState(VK_SPACE))
 	{		
-		if (GetTickCount() - m_Time2 > 150)
+		if (GetTickCount() - m_Time2 > 120)
 		{
-			if (m_bShield)
+			if (m_bShield)	// 쉴드 모드
 			{
-				m_pBullet->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
-				m_pBullet->back()->Side("아군");
-				m_pBullet->back()->Set_Speed(-3.f);
+				m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle, "아군"));
+				m_pBulletList->back()->Set_Speed(6.f);
 
 				for (auto& _shield : *m_pShieldList)
 				{
 					POINT temp = { dynamic_cast<CShield*>(_shield)->Get_PosinPoint().x,
 									dynamic_cast<CShield*>(_shield)->Get_PosinPoint().y };
-					m_pBullet->push_back(CAbstractFactory<CBullet>::Create((float)temp.x, (float)temp.y, m_fAngle));
-					m_pBullet->back()->Side("아군");
-					m_pBullet->back()->Set_Speed(-3.f);
+					m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)temp.x, (float)temp.y, m_fAngle, "아군"));
+					m_pBulletList->back()->Set_Speed(6.f);
 				}
 			}
-			else if (!m_bBoost)
+			else if (m_bBoost)	// 부스트 모드
 			{
-				m_pBullet->push_back(CAbstractFactory<CBulletBomb>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
+				/*m_pBullet->push_back(CAbstractFactory<CBulletBomb>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
 				((CBulletBomb*)m_pBullet->back())->SetBulletList(m_pBullet);
 				m_pBullet->back()->Side("아군");
 				//m_pBullet->back()->Side("아군");//수정필요
-				//m_pBullet->back()->Set_Speed(-3.f);
+				//m_pBullet->back()->Set_Speed(-3.f);*/
+				//총알 3발
+				m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x - 10, (float)m_tPosin.y, m_fAngle, "아군"));
+				m_pBulletList->back()->Set_Speed(8.f);
+				m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle, "아군"));
+				m_pBulletList->back()->Set_Speed(8.f);
+				m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x + 10, (float)m_tPosin.y, m_fAngle, "아군"));
+				m_pBulletList->back()->Set_Speed(8.f);
+				
+			}
+			else if (!m_bBoost)	// 기본 모드
+			{
+				m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle, "아군"));
+				m_pBulletList->back()->Set_Speed(6.f);
 			}
 			m_Time2 = GetTickCount();
-		}
-
-		if (GetTickCount() - m_Time2 > 120)
-		{
-			if (m_bBoost)
-			{
-				//총알 3발
-				m_pBullet->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x - 10, (float)m_tPosin.y, m_fAngle));
-				m_pBullet->back()->Side("아군");
-				m_pBullet->back()->Set_Speed(-3.f);
-
-				m_pBullet->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
-				m_pBullet->back()->Side("아군");
-				m_pBullet->back()->Set_Speed(-3.f);
-
-				m_pBullet->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x + 10, (float)m_tPosin.y, m_fAngle));
-				m_pBullet->back()->Side("아군");
-				m_pBullet->back()->Set_Speed(-3.f);
-			}
+			
 		}
 	}
 
@@ -323,7 +312,6 @@ void CPlayer::Key_Input(void)
 			}
 		}
 	}
-
 	else if (GetAsyncKeyState(VK_RIGHT))
 	{
 		if (m_tInfo.fX < 800)				// 화면 이탈 방지
@@ -348,7 +336,6 @@ void CPlayer::Key_Input(void)
 				m_tInfo.fX += m_fSpeed;
 		}
 	}
-
 	else if (GetAsyncKeyState(VK_UP))
 	{
 		if (m_tInfo.fY > 0)		// 화면 이탈 방지
@@ -356,12 +343,36 @@ void CPlayer::Key_Input(void)
 			m_tInfo.fY -= m_fSpeed;
 		}
 	}
-
 	else if (GetAsyncKeyState(VK_DOWN))
 	{
 		if (m_tInfo.fY < 600)	// 화면 이탈 방지
 		{
 			m_tInfo.fY += m_fSpeed;
 		}
+	}
+}
+
+void CPlayer::Set_ItemAbility(CObj* _item)
+{
+	int iItemType = dynamic_cast<CItem*>(_item)->Get_ItemType();
+	switch (iItemType)
+	{
+		m_fAngle_Shield;
+	case ITEM_SHIELD:
+		for (int i = 0; i < 2; ++i)
+		{
+			m_pShieldList->push_back(CAbstractFactory<CShield>::Create((float)m_tPosin.x, (float)m_tPosin.y, 90.f));
+		}
+		m_bShield = true;
+		m_Time = GetTickCount();
+		break;
+	case ITEM_SPEED:
+		m_fSpeed *= 1.1f;
+		break;
+	case ITEM_COIN:
+		g_iScore += 100;
+		break;
+	default:
+		break;
 	}
 }

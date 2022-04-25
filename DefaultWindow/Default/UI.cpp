@@ -74,7 +74,7 @@ void CUI::Render_UI_Heart(HDC hDC, CObj* _pPlayer)
 	switch (dynamic_cast<CPlayer*>(_pPlayer)->Get_BoostCount())
 	{
 	case 0:
-		lstrcpy(m_szBoost, L" BOOST(ctrl) : 부스트가 없습니다.");
+		lstrcpy(m_szBoost, L" BOOST(ctrl) : 부스트가 없습니다. Score를 채우세요");
 		break;
 	case 1:
 		lstrcpy(m_szBoost, L" BOOST(ctrl) : ◆ ");
@@ -104,6 +104,7 @@ void CUI::Render_UI_Score(HDC hDC)
 	swprintf_s(m_szTemp, L"Score : %d", g_iScore);
 	DrawText(hDC, m_szTemp, lstrlen(m_szTemp), &rc, DT_RIGHT);
 }
+
 
 void CUI::Render_UI_PosText(HDC hDC, float _x, float _y, TCHAR _text[64])
 {

@@ -31,12 +31,6 @@ void CCollisionMgr::Collision_Rect(list<CObj*> _Dest, list<CObj*> _Sour)
 				Dest->OnTriggerEnter(Sour);
 				Sour->OnTriggerEnter(Dest);
 				//end
-				/*if ((Dest->Get_Side()) != (Sour->Get_Side()))
-				{
-					Dest->Set_Dead();
-					Sour->Set_Dead();
-					++g_iScore;
-				}*/
 			}
 		}
 	}
@@ -66,8 +60,13 @@ void CCollisionMgr::Collision_Sphere(list<CObj*> _Dest, list<CObj*> _Sour)
 			{
 				Dest->Set_Dead();
 				Sour->Set_Dead();
-				++g_iScore;
 			}
 		}
 	}
 }
+
+//int CCollisionMgr::Item_Percent()
+//{
+//	return rand() % 100 + 1;
+//}
+
