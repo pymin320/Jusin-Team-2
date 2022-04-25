@@ -2,6 +2,7 @@
 #include "Obj.h"
 #include "Bullet.h"
 #include "Bullet_Default.h"
+#include "BulletBomb.h"
 #include "CPattern.h"
 #include "UI.h"
 
@@ -13,10 +14,13 @@ public:
 
 public:
 	int		Get_Heart() { return m_iHeart; }
-	void Set_EnemyList(list<CObj*>* pEnemy) { m_EnemyList = pEnemy; }
-	void TempFunc();//필살기
+	void	Set_EnemyList(list<CObj*>* pEnemy) { m_EnemyList = pEnemy; }
+	void	TempFunc();//필살기
 	int		Get_BoostCount() { return m_iBoostCount; }
-	void	Set_BulletList(list<CObj*>* pBullet) { m_pBullet = pBullet; }
+	void	Set_BulletList(list<CObj*>* pBullet) 
+			{ 
+				m_pBullet = pBullet; 
+			}
 	void	Set_ItemShield() { m_bShield = true; }
 	void	Set_ItemSpeed() { m_fSpeed *= 1.3f; }
 	void	Set_HDC(HDC hDC) { m_hDC = hDC; }
@@ -27,6 +31,8 @@ public:
 	virtual	void Late_Update(void);
 	virtual void Render(HDC hDC) override;
 	virtual void Release(void) override;
+
+	virtual void OnTriggerEnter(CObj* _Object) override;
 
 private:
 	void		Key_Input();
@@ -61,6 +67,9 @@ private:
 	DWORD			m_Time2;
 	DWORD			m_Time3;
 
+	//hong modify
+	int m_helth = 10;
+	DWORD m_CollisionTime;
+	// end
 //	CPattern*			m_pPattern;
-
 };

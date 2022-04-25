@@ -4,6 +4,7 @@
 #include "Monster.h"
 #include "Mouse.h"
 #include "CollisionMgr.h"
+#include "BulletBomb.h"
 
 int		g_iScore = 0;
 
@@ -24,49 +25,53 @@ void CMainGame::Initialize(void)
 {
 	m_hDC = GetDC(g_hWnd);
 	m_ObjList[OBJ_PLAYER].push_back(CAbstractFactory<CPlayer>::Create("아군"));
-	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
+	m_ObjList[OBJ_COLLIDER].push_back(m_ObjList[OBJ_PLAYER].back());
+	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].back())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
+	//dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
 
 	
 	//공격 몬스터 생성
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(200,250.f, MOB_FW));
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(200,150.f, MOB_FW));
+	m_ObjList[OBJ_COLLIDER].push_back(m_ObjList[OBJ_MONSTER].back());
 	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+	m_ObjList[OBJ_MONSTER].back()->Side("적군");
 	
-    m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(300, 250.f, MOB_FW));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+ //   m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(300, 250.f, MOB_FW));
+	//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(400, 250.f, MOB_FW));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+	//m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(400, 250.f, MOB_FW));
+	//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 
-	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_HDC(m_hDC);
+	//dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_HDC(m_hDC);
 
-	
+	//
 
 
-	////수비 몬스터 생성
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(125.f, 75.f, MOB_DF));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+	//////수비 몬스터 생성
+	//m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(125.f, 75.f, MOB_DF));
+	//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(225.f, 75.f, MOB_DF));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+	//m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(225.f, 75.f, MOB_DF));
+	//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(325.f, 75.f, MOB_DF));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+	//m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(325.f, 75.f, MOB_DF));
+	//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(475.f, 75.f, MOB_DF));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+	//m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(475.f, 75.f, MOB_DF));
+	//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(575.f, 75.f, MOB_DF));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+	//m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(575.f, 75.f, MOB_DF));
+	//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(675.f, 75.f, MOB_DF));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+	//m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(675.f, 75.f, MOB_DF));
+	//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 
-	////추격 몬스터(ChaseMonster)
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(100.f, 100.f, MOB_CH));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+	//////추격 몬스터(ChaseMonster)
+	//m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(100.f, 100.f, MOB_CH));
+	//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(700.f, 100.f, MOB_CH));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+	//m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(700.f, 100.f, MOB_CH));
+	//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 
 	
 	//m_ObjList[OBJ_BOSS].push_back(CAbstractFactory<CBoss>::Create(400, -200, 0, "적군"));
@@ -123,8 +128,9 @@ void CMainGame::Late_Update(void)
 			iter->Late_Update();
 	}
 	
-	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
-	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BULLET]);
+	//콜라이더가 있는 ObjList만 빼오고싶은데....
+	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_COLLIDER], m_ObjList[OBJ_COLLIDER]);
+	//CCollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BULLET]);
 	//CCollisionMgr::Collision_Rect(m_ObjList[OBJ_BOSS], m_ObjList[OBJ_BULLET]);
 	
 	m_pItem->Late_Update();

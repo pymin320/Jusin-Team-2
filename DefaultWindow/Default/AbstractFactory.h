@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Obj.h"
-
+#include "CPattern.h"
 
 template<typename T>
 class CAbstractFactory

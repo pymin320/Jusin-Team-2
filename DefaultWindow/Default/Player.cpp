@@ -67,6 +67,8 @@ void CPlayer::Initialize(void)
 	{
 		m_pShieldList->push_back(CAbstractFactory<CShield>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle_Shield));
 	}
+
+	m_bCollision = false;
 }
 
 int CPlayer::Update(void)
@@ -184,6 +186,24 @@ void CPlayer::Release(void)
 	//Safe_Delete<CPattern*>(m_pPattern);
 }
 
+//충돌이 되면 실행되는 함수
+void CPlayer::OnTriggerEnter(CObj* _Object)
+{
+	
+	if (!(_Object->Get_Side() == "적군"))
+	{
+		m_CollisionTime = GetTickCount();
+		//PostQuitMessage(0);~~
+		m_helth--;
+		// 데미지입음
+	}
+	if (_Object->Get_Side() == "아군")
+	{
+		//PostQuitMessage(0);~~
+	}
+	//if (_Object->Get_Side() == ("아이템"))// (Monster*)_Object->GetItem  
+}
+
 void CPlayer::Key_Input(void)
 {
 	if (GetAsyncKeyState(VK_CONTROL))
@@ -221,9 +241,11 @@ void CPlayer::Key_Input(void)
 			}
 			else if (!m_bBoost)
 			{
-				m_pBullet->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
+				m_pBullet->push_back(CAbstractFactory<CBulletBomb>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
+				((CBulletBomb*)m_pBullet->back())->SetBulletList(m_pBullet);
 				m_pBullet->back()->Side("아군");
-				m_pBullet->back()->Set_Speed(-3.f);
+				//m_pBullet->back()->Side("아군");//수정필요
+				//m_pBullet->back()->Set_Speed(-3.f);
 			}
 			m_Time2 = GetTickCount();
 		}

@@ -48,7 +48,6 @@
     </Filter>
     <Filter Include="0. jini">
       <UniqueIdentifier>{3573e88a-dc96-4bd1-94f3-6a97255a3993}</UniqueIdentifier>
-
     </Filter>
     <Filter Include="01. Obj\pym_Boss">
       <UniqueIdentifier>{e5c387c3-c156-4271-be3c-48197b74219f}</UniqueIdentifier>
@@ -58,14 +57,9 @@
     </Filter>
     <Filter Include="01. Obj\02. Monster\JeongEun\02. Monster">
       <UniqueIdentifier>{e0ab47df-43ed-4ed6-be54-3523b7b16a3a}</UniqueIdentifier>
-
     </Filter>
-   
-   
-   
     <Filter Include="Pattern">
       <UniqueIdentifier>{d2647cca-9a25-4b88-a5a8-baac248f3504}</UniqueIdentifier>
-
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -130,9 +124,6 @@
     <ClInclude Include="Bullet_Default.h">
       <Filter>01. Obj\01. Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="CPattern.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="UI.h">
       <Filter>0. jini</Filter>
     </ClInclude>
@@ -150,6 +141,9 @@
     </ClInclude>
     <ClInclude Include="Item.h">
       <Filter>0. jini</Filter>
+    </ClInclude>
+    <ClInclude Include="CPattern.h">
+      <Filter>Pattern</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -187,9 +181,6 @@
     <ClCompile Include="Bullet_Default.cpp">
       <Filter>01. Obj\01. Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="CPattern.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="UI.cpp">
       <Filter>0. jini</Filter>
     </ClCompile>
@@ -207,6 +198,9 @@
     </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>0. jini</Filter>
+    </ClCompile>
+    <ClCompile Include="CPattern.cpp">
+      <Filter>Pattern</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

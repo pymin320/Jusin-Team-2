@@ -43,7 +43,8 @@ void CBullet::Late_Update(void)
 
 void CBullet::Render(HDC hDC)
 {
-	Ellipse(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	if (!m_bDead)
+		Ellipse(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 }
 
 void CBullet::Release(void)
