@@ -15,7 +15,6 @@ public:
 public:
 	int		Get_Heart() { return m_iHeart; }
 	void	Set_EnemyList(list<CObj*>* pEnemy) { m_EnemyList = pEnemy; }
-	void	TempFunc();//필살기
 	int		Get_BoostCount() { return m_iBoostCount; }
 	void	Set_BulletList(list<CObj*>* _pBulletList) { m_pBulletList = _pBulletList; }
 	void	Set_ItemList(list<CObj*>* _pItemList) { m_pItemList = _pItemList; }

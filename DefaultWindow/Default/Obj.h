@@ -34,7 +34,7 @@ public:
 	
 	virtual		void	OnTriggerEnter(CObj* _Object) {};
 	const string	Get_Side(void) const { return m_Side; }
-
+	void SetColliderList(list<CObj*>* _ColList) { m_ColList = _ColList; }
 protected:
 	void		Update_Rect(void);
 	
@@ -46,7 +46,7 @@ protected:
 	float		m_fSpeed;
 	float		m_ySpeed;
 	float		m_fAngle;
-
+	list<CObj*>* m_ColList;
 
 	DIRECTION	m_eDir;
 	bool		m_bDead;

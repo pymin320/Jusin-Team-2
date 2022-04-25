@@ -40,9 +40,9 @@ int CBullet::Update(void)
 
 void CBullet::Late_Update(void)
 {
-	if (0 >= m_tRect.left || WINCX - 0 <= m_tRect.right ||
+	/*if (0 >= m_tRect.left || WINCX - 0 <= m_tRect.right ||
 		0 >= m_tRect.top || WINCY - 0 <= m_tRect.bottom)
-		m_bDead = true;
+		m_bDead = true;*/
 }
 
 void CBullet::Render(HDC hDC)
@@ -70,7 +70,16 @@ void CBullet::Render(HDC hDC)
 
 void CBullet::Release(void)
 {
+	m_ColList = nullptr;
 
+}
+void CBullet::OnTriggerEnter(CObj* _Object)
+{
+	if ((m_Side == "Team") && (_Object->Get_Side() == "Enemy"))
+	{
+		int a;
+		//m_bDead = true;
+	}
 }
 void CBullet::SetDirection(const POINT& _direction)
 {

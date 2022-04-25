@@ -160,49 +160,26 @@ void CPlayer::Render(HDC hDC)
 void CPlayer::Release(void)
 {
 	//Safe_Delete<CPattern*>(m_pPattern);
+	m_ColList = nullptr;
 }
 
 //충돌이 되면 실행되는 함수
 void CPlayer::OnTriggerEnter(CObj* _Object)
 {
-	
-	/*m_CollisionTime = CurrentTime;
-	if (CurrentTime - m_CollisionTime <= 3000)
+	if (!(_Object->Get_Side() == "Enemy"))
 	{
-		return;
-	}*/
-	//처음 충돌햇을때부터 재
-	DWORD CurrentTime = GetTickCount();
-	if (CurrentTime - m_CollisionTime < 3000 || m_bCollision)
-	{
-		if (!(_Object->Get_Side() == "Enemy"))
-		{
-			m_CollisionTime = GetTickCount();
-			/*if (CurrentTime)
-			{
+		m_CollisionTime = GetTickCount();
 
-			}
-			CurrentTime = GetTickCount();*/
-
-			//PostQuitMessage(0);~~
-			m_helth--;
-			// 데미지입음
-
-		}
-    if (_Object->Get_Side() == "Item")
-    {
-      
-    }
-    
-		if (_Object->Get_Side() == "Team")
-		{
-			//PostQuitMessage(0);~~
-		}
-
-		//if (_Object->Get_Side() == ("아이템"))// (Monster*)_Object->GetItem  
+		m_helth--;
+		//데미지입음
 
 	}
+	if (_Object->Get_Side() == "Team")
+	{
+		Set_ItemAbility(_Object);
+	}
 }
+
 
 void CPlayer::Key_Input(void)
 {
@@ -239,11 +216,10 @@ void CPlayer::Key_Input(void)
 			}
 			else if (m_bBoost)	// 부스트 모드
 			{
-				/*m_pBullet->push_back(CAbstractFactory<CBulletBomb>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
-				((CBulletBomb*)m_pBullet->back())->SetBulletList(m_pBullet);
-				m_pBullet->back()->Side("Team");
-				//m_pBullet->back()->Side("Team");//수정필요
-				//m_pBullet->back()->Set_Speed(-3.f);*/
+				//m_pBulletList->push_back(CAbstractFactory<CBulletBomb>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
+				//((CBulletBomb*)m_pBulletList->back())->SetBulletList(m_pBulletList);
+				//m_pBulletList->back()->Side("Team");//수정필요
+				//m_pBulletList->back()->Set_Speed(-3.f);
 				//총알 3발
 				m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x - 10, (float)m_tPosin.y, m_fAngle, "Team"));
 				m_pBulletList->back()->Set_Speed(8.f);
@@ -255,8 +231,18 @@ void CPlayer::Key_Input(void)
 			}
 			else if (!m_bBoost)	// 기본 모드
 			{
+				//m_pBulletList->push_back(CAbstractFactory<CBulletBomb>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
+				//((CBulletBomb*)m_pBulletList->back())->SetBulletList(m_pBulletList);
+				//m_pBulletList->back()->Side("Team");//수정필요
+				//m_pBulletList->back()->Set_Speed(3.f);
+
+
+
 				m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle, "Team"));
 				m_pBulletList->back()->Set_Speed(6.f);
+				m_ColList->push_back(m_pBulletList->back());
+
+
 			}
 			m_Time2 = GetTickCount();
 			

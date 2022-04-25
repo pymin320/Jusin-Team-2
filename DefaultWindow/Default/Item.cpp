@@ -14,13 +14,11 @@ CItem::~CItem()
 
 void CItem::Initialize(void)
 {
-	
 	m_tInfo.fCX = 30.f;
 	m_tInfo.fCY = 30.f;
 
 	m_fSpeed = 2.f;
 	m_ySpeed = 2.f;
-
 }
 
 int CItem::Update(void)
