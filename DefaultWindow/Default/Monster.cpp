@@ -25,7 +25,7 @@ void CMonster::Initialize(void)
 		m_tInfo.fCX = 18.f;
 		m_tInfo.fCY = 10.f;
 
-		m_fSpeed = 2.f;
+		m_fSpeed = 1.f;
 	}
 	//내려오는몬스터
 	if (m_eType == MOB_DF)
