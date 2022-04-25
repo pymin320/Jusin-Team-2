@@ -31,6 +31,7 @@ private:
 	MOBTYPE		m_eType;
 	CPattern* m_pPattern;	
 	list<CObj*>* m_pItemList;
+	POINT			PolygonPoint[6];
 	POINT m_Posin;
 	POINT m_Posin2;		//추격몬스터포신
 	float m_fDiagonal;

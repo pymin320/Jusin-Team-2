@@ -22,27 +22,27 @@ void CMonster::Initialize(void)
 	//좌우이동몬스터
 	if (m_eType == MOB_FW)
 	{
-		m_tInfo.fCX = 25.f;
-		m_tInfo.fCY = 25.f;
+		m_tInfo.fCX = 18.f;
+		m_tInfo.fCY = 10.f;
 
-		m_fSpeed = 1.f;
+		m_fSpeed = 2.f;
 	}
 	//내려오는몬스터
 	if (m_eType == MOB_DF)
 	{
-		m_tInfo.fCX = 25.f;
-		m_tInfo.fCY = 25.f;
-
-		m_fSpeed = 1.5f;
+		m_tInfo.fCX = 20.f;
+		m_tInfo.fCY = 10.f;
+		//1-3랜덤값으로변경
+		m_fSpeed = rand() % 3 + 1;
 	}
 	if (m_eType == MOB_CH)
 	{
 		m_tInfo.fCX = 25.f;
 		m_tInfo.fCY = 25.f;
 
-		m_fSpeed = 2.f;
+		m_fSpeed = 1.f;
 	}
-
+	
 	m_pPattern = new CPattern;
 	m_fDiagonal = 30.f;
 
@@ -62,17 +62,38 @@ int CMonster::Update(void)
 	}
 	if (m_eType == MOB_FW)
 	{
+		
+		PolygonPoint[0] = { (long)m_tInfo.fX, (long)m_tInfo.fY+15 };
+		PolygonPoint[1] = { (long)m_tInfo.fX -10, (long)m_tInfo.fY +5 };
+		PolygonPoint[2] = { (long)m_tInfo.fX -10, (long)m_tInfo.fY-15 };
+		PolygonPoint[3] = { (long)m_tInfo.fX, (long)m_tInfo.fY -5 };
+		PolygonPoint[4] = { (long)m_tInfo.fX +10, (long)m_tInfo.fY-15 };
+		PolygonPoint[5] = { (long)m_tInfo.fX +10, (long)m_tInfo.fY +5 };
 		m_tInfo.fX += m_fSpeed;
 		m_fAngle = -90.f;
 	}
 
 	if (m_eType == MOB_DF)
 	{
+		PolygonPoint[0] = { (long)m_tInfo.fX, (long)m_tInfo.fY + 15 };
+		PolygonPoint[1] = { (long)m_tInfo.fX - 10, (long)m_tInfo.fY + 5 };
+		PolygonPoint[2] = { (long)m_tInfo.fX - 10, (long)m_tInfo.fY - 15 };
+		PolygonPoint[3] = { (long)m_tInfo.fX, (long)m_tInfo.fY - 5 };
+		PolygonPoint[4] = { (long)m_tInfo.fX + 10, (long)m_tInfo.fY - 15 };
+		PolygonPoint[5] = { (long)m_tInfo.fX + 10, (long)m_tInfo.fY + 5 };
+
 		m_tInfo.fY += m_fSpeed;
 	}
 	//추격몬스터 역삼각함수로 각도 구하기
 	if (m_eType == MOB_CH)
 	{
+		PolygonPoint[0] = { (long)m_tInfo.fX, (long)m_tInfo.fY + 15 };
+		PolygonPoint[1] = { (long)m_tInfo.fX - 10, (long)m_tInfo.fY + 5 };
+		PolygonPoint[2] = { (long)m_tInfo.fX - 10, (long)m_tInfo.fY - 15 };
+		PolygonPoint[3] = { (long)m_tInfo.fX, (long)m_tInfo.fY - 5 };
+		PolygonPoint[4] = { (long)m_tInfo.fX + 10, (long)m_tInfo.fY - 15 };
+		PolygonPoint[5] = { (long)m_tInfo.fX + 10, (long)m_tInfo.fY + 5 };
+
 		//x좌표 사이의 거리
 		float fWidth = m_pTarget->Get_Info().fX - m_tInfo.fX;
 
@@ -92,6 +113,7 @@ int CMonster::Update(void)
 	}
 	m_Posin.x = m_tInfo.fX;
 	m_Posin.y = m_tInfo.fY + 20.f;
+	
 	Update_Rect();
 	return OBJ_NOEVENT;
 }
@@ -102,15 +124,19 @@ void CMonster::Late_Update(void)
 	{
 		if (100 >= m_tRect.left || WINCX - 100 <= m_tRect.right)
 			m_fSpeed *= -1.f;
+		
+
 	}
+
 
 	if (m_eType == MOB_CH)
 	{
 		//포신 끝 좌표
 		m_Posin.x = m_tInfo.fX + m_fDiagonal * cosf((m_fAngle)*PI / 180.f);
 		m_Posin.y = m_tInfo.fY - m_fDiagonal * sinf((m_fAngle)*PI / 180.f);
-		/*	m_Posin.x = m_Posin2.x;
-			m_Posin.y = m_Posin2.y;*/
+		
+	;
+
 	}
 	m_iPatternNum = rand() % 3 + 1;
 	m_pPattern->Set_Angle(m_fAngle);
@@ -120,11 +146,17 @@ void CMonster::Late_Update(void)
 void CMonster::Render(HDC hDC)
 {
 	if (m_eType == MOB_CH)
-	{
+	{	
+	 //추격 모양 엘립스로 바꿈
 		MoveToEx(hDC, m_tInfo.fX, m_tInfo.fY, nullptr);
 		LineTo(hDC, m_Posin.x, m_Posin.y);
+		Ellipse(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 	}
-	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	//나머지 다각형으로 모양 덮음
+	else {
+		Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+		Polygon(hDC, PolygonPoint, 6);
+	}
 }
 
 void CMonster::Release(void)
@@ -133,7 +165,7 @@ void CMonster::Release(void)
 	delete m_pPattern;
 	m_pPattern = nullptr;
 	m_ColList = nullptr;
-	//end
+	 //end
 }
 
 void CMonster::OnTriggerEnter(CObj* _Object)

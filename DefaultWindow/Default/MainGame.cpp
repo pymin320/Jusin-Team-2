@@ -43,25 +43,32 @@ void CMainGame::Initialize(void)
 	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(300, 150.f, MOB_FW));
 	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
+	//좌우추가
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(400, 150.f, MOB_FW));
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
 
-	//하강몬스터 x,y 좌표 랜더값으로 
-	for (int i = 0; i < 15; ++i)
+	//하강몬스터 x,y 좌표 랜덤값으로 
+	for (int i = 0; i < 8; ++i)
 	{
-		m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(i * 50 + 25, rand() % 900 - 1100, MOB_DF));
+		m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(rand()%600 + 200, rand() % 900 - 1500, MOB_DF));
 		((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 		((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
 		m_ObjList[OBJ_MONSTER].back()->Set_Angle(-90.f);
 	}
 
 	//추격 몬스터(ChaseMonster)
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(25.f, 25.f, MOB_CH));
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(-100.f, -100.f, MOB_CH));
 	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
 
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(775.f, 25.f, MOB_CH));
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(900.f, -100.f, MOB_CH));
 	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
-
+	//추격 추가
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(400.f, -200.f, MOB_CH));
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
 
 	for (auto& iter : m_ObjList[OBJ_MONSTER])
 	{
