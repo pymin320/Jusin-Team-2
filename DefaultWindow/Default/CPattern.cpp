@@ -24,10 +24,12 @@ void CPattern::Set_BulletList(list<CObj*>* pBullet)
 {
 	m_pBullet = pBullet;
 }
-
+void CPattern::SetTime(DWORD _time)
+{
+	m_Time = _time;
+}
 void CPattern::Update(POINT& _Posin, int i)
 {
-	int a = GetTickCount();
 	switch (i)
 	{
 		case 1://한번 쏘기
@@ -77,5 +79,8 @@ void CPattern::Update(POINT& _Posin, int i)
 		break;
 		default:
 			break;
+	
 	}
+
+//	m_Time = GetTickCount();//시간은 계속돌리고
 }

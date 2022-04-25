@@ -4,6 +4,7 @@
 CBossFront::CBossFront()
 	:m_BossTime(GetTickCount())
 {
+	m_Pattern = new CPattern;
 }
 
 CBossFront::~CBossFront()
@@ -23,7 +24,6 @@ void CBossFront::Initialize(void)
 	m_Side = "Enemy";
 	m_fDiagonal = 0;
 
-	m_Pattern = new CPattern;
 }
 
 int CBossFront::Update(void)
@@ -57,13 +57,13 @@ int CBossFront::Update(void)
 	float		fRadian = acosf(fWidth / fDiagona);
 
 	m_fDiagonal = m_tRect.bottom + 70;
+	m_fAngle = (fRadian * 180.f) / PI;
 
+	m_tPosin.x = long(m_tInfo.fX + m_fDiagonal * cosf((m_fAngle)*PI / 180.f));
+	m_tPosin.y = long(m_tInfo.fY + m_fDiagonal * sinf((m_fAngle)*PI / 180.f));
 
-	m_tPosin.x = long(m_tInfo.fX + m_fDiagonal * cosf(fRadian));
-	m_tPosin.y = long(m_tInfo.fY + m_fDiagonal * sinf(fRadian));
-
-	//m_Pattern->Set_Angle(m_fAngle)
-	m_Pattern->Update(m_tPosin, 1);
+	
+	
 	return OBJ_NOEVENT;
 }
 
@@ -74,6 +74,10 @@ void CBossFront::Late_Update(void)
 	if (110 < m_tRect.bottom)
 		m_ySpeed = 0;
 
+	if (m_pTarget->Get_Info().fY > m_tInfo.fY)
+		m_fAngle *= -1.f;
+	m_Pattern->Set_Angle(m_fAngle);
+	m_Pattern->Update(m_tPosin, 1);
 	
 }
 

@@ -17,14 +17,14 @@ public:
 	void Set_BulletList(list<CObj*>* _pBulletList)
 	{
 		m_pBullet = _pBulletList;
+		m_Pattern->Set_BulletList(_pBulletList);
 	}
 private:
 	POINT		m_tPie;			//중간 반원
 	POINT		m_tPosin;
 	DWORD		m_BossTime;
 	//RECT		m_PosinRect;
-	typedef list<CObj*>		BULLETLIST;
-	BULLETLIST* m_pBullet;
+	list<CObj*>* m_pBullet;
 	int m_Hp;
 	int m_fDiagonal;
 	CPattern* m_Pattern;
