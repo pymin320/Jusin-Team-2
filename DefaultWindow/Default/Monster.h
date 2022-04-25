@@ -24,14 +24,17 @@ public:
 	
 
 private:
+
+	
 	MOBTYPE		m_eType;
 	CPattern* m_pPattern;	
 	POINT m_Posin;
+	POINT m_Posin2;		//추격몬스터포신
 
 	float m_fDiagonal;
 	 
 	CObj* m_pPlayer;
-	POINT m_tPlayer;
+	
 	
 
 	float m_TempAngle;

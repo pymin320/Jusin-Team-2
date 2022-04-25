@@ -27,7 +27,7 @@ void CMainGame::Initialize(void)
 	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
 
 	
-	//공격 몬스터 생성
+	//좌우이동몬스터
 	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(200,250.f, MOB_FW));
 	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 	
@@ -41,37 +41,30 @@ void CMainGame::Initialize(void)
 
 	
 
+	
+	//하강몬스터 x,y 좌표 랜더값으로 
+	for (int i = 0; i < 15; ++i)
+		{
+			m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(/*rand() % 600 + 100*/i*50+25, rand() % 900 - 1100, MOB_DF));
+			((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);		
+		}
+	
+	//하강몬스터 이전코드
+	//m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(125.f, 75.f, MOB_DF));
+	//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 
-	////수비 몬스터 생성
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(125.f, 75.f, MOB_DF));
+
+	//추격 몬스터(ChaseMonster)
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(25.f, 25.f, MOB_CH));
 	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(225.f, 75.f, MOB_DF));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(325.f, 75.f, MOB_DF));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(475.f, 75.f, MOB_DF));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(575.f, 75.f, MOB_DF));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(675.f, 75.f, MOB_DF));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-
-	////추격 몬스터(ChaseMonster)
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(100.f, 100.f, MOB_CH));
-	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(700.f, 100.f, MOB_CH));
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(775.f, 25.f, MOB_CH));
 	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 
 	
 	//m_ObjList[OBJ_BOSS].push_back(CAbstractFactory<CBoss>::Create(400, -200, 0, "적군"));
 	//dynamic_cast<CBoss*>(m_ObjList[OBJ_BOSS].front())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
-	
+	 
 
 	// UI 그리기 용도
 	//m_pUI = new CUI();
@@ -81,7 +74,8 @@ void CMainGame::Initialize(void)
 	m_pItem = new CItem();
 	dynamic_cast<CItem*>(m_pItem)->Set_pPlayer(m_ObjList[OBJ_PLAYER].front());
 	//m_pItem->Set_Pos(100.f, 100.f);
-
+	for (auto& iter : m_ObjList[OBJ_MONSTER])
+		iter->Set_Target(m_ObjList[OBJ_PLAYER].front());//몬스터에 있는 setTarget에서 player의 좌표를 받아옴
 
 }
 
@@ -90,9 +84,11 @@ void CMainGame::Update(void)
 
 	for (int i = 0; i < OBJ_END; ++i)
 	{
+	
 		for (auto& iter = m_ObjList[i].begin();
-			iter != m_ObjList[i].end(); )
+			iter != m_ObjList[i].end();)
 		{
+			
 			int iResult = (*iter)->Update();
 
 			if (OBJ_DEAD == iResult)
@@ -105,11 +101,11 @@ void CMainGame::Update(void)
 					// 게임오버 처리 추가
 					PostQuitMessage(0);
 				}
-			
 			}
 			else
 				++iter;
 		}
+	
 	}
 
 	m_pItem->Update();
@@ -122,9 +118,8 @@ void CMainGame::Late_Update(void)
 		for (auto& iter : m_ObjList[i])
 			iter->Late_Update();
 	}
-	
-	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
-	CCollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BULLET]);
+	//CCollisionMgr::Collision_Rect(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
+	//CCollisionMgr::Collision_Rect(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BULLET]);
 	//CCollisionMgr::Collision_Rect(m_ObjList[OBJ_BOSS], m_ObjList[OBJ_BULLET]);
 	
 	m_pItem->Late_Update();
