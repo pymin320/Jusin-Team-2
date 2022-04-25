@@ -37,7 +37,7 @@ int CBoss::Update(void)
 
 
 	m_tInfo.fX += m_fSpeed;
-	if (m_BossTime + 3000 <= GetTickCount())
+	if (m_BossTime + 7000 <= GetTickCount())
 	{
 		m_tInfo.fY += m_ySpeed;
 	}
