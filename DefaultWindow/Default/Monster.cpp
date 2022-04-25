@@ -4,6 +4,10 @@
 
 #include <random>
 
+//서진 추가
+#include "AbstractFactory.h"
+#include "Item.h"
+
 
 CMonster::CMonster() {}
 CMonster::CMonster(MOBTYPE eType)
@@ -62,7 +66,14 @@ void CMonster::Initialize(void)
 int CMonster::Update(void)
 {
 	if (m_bDead)
-		return OBJ_DEAD;
+	{
+		if (Item_Percent() > 20) // 서진 추가
+		{
+			CreateItem();
+			return OBJ_DEAD;
+		}
+	}
+		
 
 	if (m_eType == MOB_FW)
 	{
@@ -134,10 +145,6 @@ void CMonster::Late_Update(void)
 			m_fSpeed = 0;
 	}
 
-	
-
-
-
 	m_pPattern->Set_Angle(m_fAngle);
   	m_pPattern->Update(m_Posin, 3);//랜덤값으로 1~N의 번호를 넣어주면 됨
 }
@@ -166,13 +173,18 @@ void CMonster::SetBulletList(list<CObj*>* _pBullet)
 	m_pPattern->Set_BulletList(_pBullet);
 }
 
-//void CMonster::SetBulletList(list<CObj*>* _pPattern)
-//{
-//	//m_pBullet = _pPattern;
-//}
-//
-//void CMonster::SetPatternBulletList(list<CObj*>* pBullet)
-//{
-//
-//	//m_pPattern->Set_BulletList(pBullet);
-//}
+// 서진 추가 (아이템 생성용)
+void CMonster::SetItemList(list<CObj*>* _pItem)
+{
+	m_pItemList = _pItem;
+}
+
+int CMonster::Item_Percent()
+{
+	return rand() % 100 + 1;
+}
+
+void CMonster::CreateItem()
+{
+	m_pItemList->push_back(CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY, -90.f,"ITEM"));
+}

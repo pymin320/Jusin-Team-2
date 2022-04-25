@@ -14,12 +14,10 @@ CBullet::~CBullet()
 
 void CBullet::Initialize(void)
 {
-	m_tInfo.fCX = 7.f;
-	m_tInfo.fCY = 14.f;
-
+	m_tInfo.fCX = 10.f;
+	m_tInfo.fCY = 10.f;
+	
 	m_fSpeed = 3.f;
-
-	//m_fAngle = 0;
 }
 
 int CBullet::Update(void)
@@ -29,6 +27,12 @@ int CBullet::Update(void)
 
 	m_tInfo.fX += m_fSpeed * cosf((m_fAngle * PI) / 180.f);
 	m_tInfo.fY -= m_fSpeed * sinf((m_fAngle * PI) / 180.f);
+
+	if (m_Side != "적군")
+	{	
+		m_tInfo.fCX = 7.f;
+		m_tInfo.fCY = 14.f;
+	}
 
 	Update_Rect();
 	return OBJ_NOEVENT;
@@ -43,7 +47,25 @@ void CBullet::Late_Update(void)
 
 void CBullet::Render(HDC hDC)
 {
-	Ellipse(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	HBRUSH myBrush;
+	HBRUSH oldBrush;
+
+	if (m_Side == "적군")
+	{
+		myBrush = (HBRUSH)CreateSolidBrush(RGB(255, 81, 81));
+		oldBrush = (HBRUSH)SelectObject(hDC, myBrush);
+		Ellipse(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+		SelectObject(hDC, oldBrush);
+		DeleteObject(myBrush);
+	}
+	else
+	{
+		myBrush = (HBRUSH)CreateSolidBrush(RGB(101, 171, 235));
+		oldBrush = (HBRUSH)SelectObject(hDC, myBrush);
+		Ellipse(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+		SelectObject(hDC, oldBrush);
+		DeleteObject(myBrush);
+	}
 }
 
 void CBullet::Release(void)

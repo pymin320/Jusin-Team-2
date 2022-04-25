@@ -16,10 +16,7 @@ public:
 	virtual		void	Render(HDC hDC);
 	virtual		void	Release(void);
 
-	void	Set_BulletList(list<CObj*>* pBullet)
-	{
-		m_pBullet = pBullet;
-	}
+	void	Set_BulletList(list<CObj*>* pBullet) { m_pBullet = pBullet; }
 
 private:
 	POINT		m_tPosin;		//오른쪽 포신

@@ -26,12 +26,12 @@ public:
 	void	Render(void);			// 매 프레임마다 출력하는 함수
 	void	Release(void);			// 동적할당한 포인터를 해제하는 함수
 
+public :
+	static void	CreateItem(float _x, float _y, float _angle);
+
 private:
 
 	HDC		m_hDC;
-	////CUI*	m_pUI;
-	//CObj*	m_pPlayer;
-	CObj*	 m_pItem;	// 서진 테스트
 
 	//list<PATTERN*> m_PatternList;
 
