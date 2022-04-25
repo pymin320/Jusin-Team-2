@@ -69,7 +69,8 @@ private:
 
 	//hong modify
 	int m_helth = 10;
-	DWORD m_CollisionTime;
+	DWORD m_CollisionTime = GetTickCount();
+	bool m_bCollision = true;
 	// end
 //	CPattern*			m_pPattern;
 };

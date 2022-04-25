@@ -190,18 +190,37 @@ void CPlayer::Release(void)
 void CPlayer::OnTriggerEnter(CObj* _Object)
 {
 	
-	if (!(_Object->Get_Side() == "적군"))
+	/*m_CollisionTime = CurrentTime;
+	if (CurrentTime - m_CollisionTime <= 3000)
 	{
-		m_CollisionTime = GetTickCount();
-		//PostQuitMessage(0);~~
-		m_helth--;
-		// 데미지입음
-	}
-	if (_Object->Get_Side() == "아군")
+		return;
+	}*/
+	//처음 충돌햇을때부터 재
+	DWORD CurrentTime = GetTickCount();
+	if (CurrentTime - m_CollisionTime < 3000 || m_bCollision)
 	{
-		//PostQuitMessage(0);~~
+		if (!(_Object->Get_Side() == "적군"))
+		{
+			m_CollisionTime = GetTickCount();
+			/*if (CurrentTime)
+			{
+
+			}
+			CurrentTime = GetTickCount();*/
+
+			//PostQuitMessage(0);~~
+			m_helth--;
+			// 데미지입음
+
+		}
+		if (_Object->Get_Side() == "아군")
+		{
+			//PostQuitMessage(0);~~
+		}
+
+		//if (_Object->Get_Side() == ("아이템"))// (Monster*)_Object->GetItem  
+
 	}
-	//if (_Object->Get_Side() == ("아이템"))// (Monster*)_Object->GetItem  
 }
 
 void CPlayer::Key_Input(void)
