@@ -120,8 +120,8 @@ void CMonster::Late_Update(void)
 			m_Posin.y = m_Posin2.y;*/
 	}
 
-	//m_pPattern->Set_Angle(m_fAngle);
-	//m_pPattern->Update(m_Posin, 3);//랜덤값으로 1~N의 번호를 넣어주면 됨
+	m_pPattern->Set_Angle(m_fAngle);
+	m_pPattern->Update(m_Posin, 3);//랜덤값으로 1~N의 번호를 넣어주면 됨
 }
 void CMonster::Render(HDC hDC)
 {
@@ -170,7 +170,7 @@ int CMonster::Item_Percent()
 
 void CMonster::CreateItem()
 {
-	//m_pItemList->push_back(CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY, -90.f, "ITEM"));
+	m_pItemList->push_back(CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY, -90.f, "ITEM"));
 	
 	//m_ColList->push_back(m_pItemList->back());
 }

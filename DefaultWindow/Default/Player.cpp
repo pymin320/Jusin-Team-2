@@ -27,8 +27,8 @@ void CPlayer::Initialize(void)
 	PolygonPoint[4] = { (long)m_tInfo.fX - 50 , (long)m_tInfo.fY + 50 };
 	PolygonPoint[5] = { (long)m_tInfo.fX - 50, (long)m_tInfo.fY };
 
-	m_tInfo.fCX = 100.f;
-	m_tInfo.fCY = 100.f;
+	m_tInfo.fCX = 10.f;
+	m_tInfo.fCY = 10.f;
 
 	m_fSpeed = 5.f;
 	m_fDiagonal = 50.f;
@@ -140,7 +140,7 @@ void CPlayer::Render(HDC hDC)
 
 	MoveToEx(hDC, m_tInfo.fX, m_tInfo.fY, NULL);
 	LineTo(hDC, m_tPosin.x, m_tPosin.y);
-
+	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 
 	if(m_bShield)
 	{
@@ -236,11 +236,9 @@ void CPlayer::Key_Input(void)
 				//m_pBulletList->back()->Side("Team");//수정필요
 				//m_pBulletList->back()->Set_Speed(3.f);
 
-
-
 				m_pBulletList->push_back(CAbstractFactory<CBullet>::Create((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle, "Team"));
 				m_pBulletList->back()->Set_Speed(6.f);
-				m_ColList->push_back(m_pBulletList->back());
+				//m_ColList->push_back(m_pBulletList->back());
 
 
 			}
