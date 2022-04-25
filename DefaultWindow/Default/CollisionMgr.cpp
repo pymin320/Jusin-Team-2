@@ -24,9 +24,19 @@ void CCollisionMgr::Collision_Rect(list<CObj*> _Dest, list<CObj*> _Sour)
 			{
 				if ((Dest->Get_Side()) != (Sour->Get_Side()))
 				{
-					Dest->Set_Dead();
-					Sour->Set_Dead();
 					++g_iScore;
+					Sour->Set_Dead();
+
+					// 서진 추가
+					// 아이템일떄 플레이어 안죽게
+					if (Sour->Get_Side() != "ITEM")
+						Dest->Set_Dead();
+
+					// 아이템 먹기
+					if (Sour->Get_Side() == "ITEM")
+					{
+						dynamic_cast<CPlayer*>(Dest)->Set_ItemAbility(Sour);
+					}
 				}
 			}
 		}
@@ -57,8 +67,13 @@ void CCollisionMgr::Collision_Sphere(list<CObj*> _Dest, list<CObj*> _Sour)
 			{
 				Dest->Set_Dead();
 				Sour->Set_Dead();
-				++g_iScore;
 			}
 		}
 	}
 }
+
+//int CCollisionMgr::Item_Percent()
+//{
+//	return rand() % 100 + 1;
+//}
+
