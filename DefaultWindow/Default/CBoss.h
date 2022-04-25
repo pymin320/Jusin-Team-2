@@ -23,7 +23,10 @@ public:
 	void	Set_BossList(list<CObj*>* pBoss) { m_pBossList = pBoss; }
 
 
-	void SetBulletList(list<CObj*>* _pBullet);
+	void SetBulletList(list<CObj*>* _pBullet)
+	{ 
+		m_pBullet = _pBullet; 
+	}
 
 private:
 	POINT		m_tPosin;		//오른쪽 포신
@@ -40,6 +43,7 @@ private:
 
 	typedef list<CObj*>		BULLETLIST;
 	BULLETLIST* m_pBullet;
+	CPattern* m_Pattern;
 
 	int m_Hp;
 };

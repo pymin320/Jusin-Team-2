@@ -21,7 +21,10 @@ void CBoss::Initialize(void)
 	m_fSpeed = 0.2f;
 	m_Hp = 200;
 
-	m_pBossFront->Initialize();
+	m_pBossFront->Initialize(); 
+	m_Pattern = new CPattern;
+	m_Pattern->Set_BulletList(m_pBullet);
+	((CBossFront*)m_pBossFront)->Set_BulletList(m_pBullet);
 }
 
 int CBoss::Update(void)
@@ -54,7 +57,9 @@ int CBoss::Update(void)
 	m_pRect2.top = m_tInfo.fY + 100;
 	m_pRect2.bottom = m_tInfo.fY + 180;
 
-	
+	m_Pattern->Update(m_tPosin, 1);
+	m_Pattern->Update(m_tPosin2, 1);
+
 	return OBJ_NOEVENT;
 }
 
@@ -76,4 +81,5 @@ void CBoss::Render(HDC hDC)
 
 void CBoss::Release(void)
 {
+	delete m_Pattern;
 }

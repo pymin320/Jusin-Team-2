@@ -63,17 +63,17 @@ void CMainGame::Initialize(void)
 	((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetItemList(&m_ObjList[OBJ_ITEM]);
 
 
+	
+
+	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CBoss>::Create(400, -200, 0, "Enemy"));
+	m_ObjList[OBJ_MONSTER].push_back(dynamic_cast<CBoss*>(m_ObjList[OBJ_MONSTER].back())->Get_BossList());
+	//((CBoss*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
+	//
+	
 	for (auto& iter : m_ObjList[OBJ_MONSTER])
 	{
 		iter->Set_Target(m_ObjList[OBJ_PLAYER].front());//몬스터에 있는 setTarget에서 player의 좌표를 받아옴
 	}
-
-	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CBoss>::Create(400, -200, 0, "Enemy"));
-	m_ObjList[OBJ_MONSTER].push_back(dynamic_cast<CBoss*>(m_ObjList[OBJ_MONSTER].back())->Get_BossList());
-	for (auto& iter : m_ObjList[OBJ_MONSTER])
-		iter->Set_Target(m_ObjList[OBJ_PLAYER].front());
-
-
 }
 
 void CMainGame::Update(void)
