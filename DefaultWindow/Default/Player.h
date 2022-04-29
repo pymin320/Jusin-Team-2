@@ -59,7 +59,7 @@ private:
 	int				m_iHeart;		// 플레이어 목숨
 	int				m_iBoostCount;
 	int				m_iBombCount;
-	/*int				m_iBoostFail;*/
+	/*int			m_iBoostFail;*/
 	int				m_iGageScore;
 	DWORD			m_Time;
 	DWORD			m_Time2;

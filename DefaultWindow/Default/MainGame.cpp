@@ -28,13 +28,6 @@ void CMainGame::Initialize(void)
 	m_ObjList[OBJ_PLAYER].push_back(CAbstractFactory<CPlayer>::Create("Team"));
 	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].back())->Set_BulletList(&m_ObjList[OBJ_BULLET]);
 
-	////공격 몬스터 생성
-	//m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(200,150.f, MOB_FW));
-	//
-	//((CMonster*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
-	//m_ObjList[OBJ_MONSTER].back()->Side("Enemy");
-
-
 	//좌우이동몬스터
 
 	m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(200, 150.f, MOB_FW));
@@ -76,8 +69,6 @@ void CMainGame::Initialize(void)
 	((CBoss*)m_ObjList[OBJ_MONSTER].back())->SetBulletList(&m_ObjList[OBJ_BULLET]);
 	((CBossFront*)(dynamic_cast<CBoss*>(m_ObjList[OBJ_MONSTER].back())->Get_BossList()))->Set_BulletList(&m_ObjList[OBJ_BULLET]);
 	m_ObjList[OBJ_MONSTER].push_back(dynamic_cast<CBoss*>(m_ObjList[OBJ_MONSTER].back())->Get_BossList());
-	
-	//
 	
 	for (auto& iter : m_ObjList[OBJ_MONSTER])
 	{

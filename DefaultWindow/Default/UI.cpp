@@ -65,6 +65,22 @@ void CUI::Render_UI_Heart(HDC hDC, CObj* _pPlayer)
 	case 5:
 		lstrcpy(m_szHeart, L" LIFE : ¢¾ ¢¾ ¢¾ ¢¾ ¢¾");
 		break;
+	case 6:
+		lstrcpy(m_szHeart, L" LIFE : ¢¾ ¢¾ ¢¾ ¢¾ ¢¾ ¢¾");
+		break;
+	case 7:
+		lstrcpy(m_szHeart, L" LIFE : ¢¾ ¢¾ ¢¾ ¢¾ ¢¾ ¢¾ ¢¾");
+		break;
+	case 8:
+		lstrcpy(m_szHeart, L" LIFE : ¢¾ ¢¾ ¢¾ ¢¾ ¢¾ ¢¾ ¢¾ ¢¾");
+		break;
+	case 9:
+		lstrcpy(m_szHeart, L" LIFE : ¢¾ ¢¾ ¢¾ ¢¾ ¢¾ ¢¾ ¢¾ ¢¾ ¢¾");
+	case 10:
+		lstrcpy(m_szHeart, L" LIFE : ¢¾ ¢¾ ¢¾ ¢¾ ¢¾ ¢¾ ¢¾ ¢¾ ¢¾ ¢¾");
+
+		break;
+		break;
 	}
 	TextOut(hDC, 20, 20, m_szHeart, lstrlen(m_szHeart));
 

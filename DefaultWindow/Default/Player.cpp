@@ -13,7 +13,7 @@ CPlayer::~CPlayer()
 }
 void CPlayer::Initialize(void)
 {
-	m_iHeart = 5;
+	m_iHeart = 10;
 	m_iBoostCount = 0;
 	m_iBombCount = 3;
 	m_iGageScore = 1;
@@ -138,7 +138,12 @@ void CPlayer::Late_Update(void)
 
 void CPlayer::Render(HDC hDC)
 {
+	HBRUSH myBrush = (HBRUSH)CreateSolidBrush(RGB(0, 0, 0));
+	HBRUSH oldBrush = (HBRUSH)SelectObject(hDC, myBrush);
 	Polygon(hDC, PolygonPoint, 6);
+	SelectObject(hDC, oldBrush);
+	DeleteObject(myBrush);
+	
 
 	MoveToEx(hDC, m_tInfo.fX, m_tInfo.fY, NULL);
 	LineTo(hDC, m_tPosin.x, m_tPosin.y);
